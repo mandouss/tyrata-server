@@ -10,8 +10,11 @@ We have:
 
 3 had a java program that can read and write the db
 
-
 Nice job team!!!!
+
+FOR TEST TEAM:
+When you need to test our code, please contact us because this is environment-related code. 
+You cannot run our code on a inappropriate running environment.
 
 Here are something we need to do in Sprint2:
 1 ask Design team for the final database design and implement it
