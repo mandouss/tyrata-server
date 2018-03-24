@@ -16,6 +16,18 @@
     <servlet-class>QueryServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>UserInsert</servlet-name>
+    <servlet-class>InsertServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>TestXml</servlet-name>
+    <servlet-class>TestXMLAction</servlet-class>
+  </servlet>
+
+  
+  
   <!-- Note: All <servlet> elements MUST be grouped together and
        placed IN FRONT of the <servlet-mapping> elements -->
 
@@ -28,4 +40,18 @@
 	 <servlet-name>UserQuery</servlet-name>
 	 <url-pattern>/query</url-pattern>
        </servlet-mapping>
-     </web-app>
+
+       <servlet-mapping>
+	 <servlet-name>UserInsert</servlet-name>
+	 <url-pattern>/insert</url-pattern>
+       </servlet-mapping>
+
+       <servlet-mapping>
+	 <servlet-name>TestXml</servlet-name>
+	 <url-pattern>/xml</url-pattern>
+       </servlet-mapping>
+
+       
+       
+
+</web-app>
