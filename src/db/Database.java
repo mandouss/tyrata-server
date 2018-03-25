@@ -1,6 +1,9 @@
+package db;
+
 import java.sql.*;
- 
-public class database {
+
+public class Database {
+	
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
     static final String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
  

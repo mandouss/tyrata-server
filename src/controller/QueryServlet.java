@@ -1,27 +1,39 @@
-// To save as "<TOMCAT_HOME>\webapps\hello\WEB-INF\classes\QueryServlet.java".
-import java.io.*;
+package controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
 
+/**
+ * Servlet implementation class QueryServlet\
+ * Author : Zizhao Fang
+ */
+@WebServlet("/QueryServlet")
 public class QueryServlet extends HttpServlet {  // JDK 1.6 and above only
-
-    // The doGet() runs once per HTTP GET request to this servlet.
-       @Override
-       public void doGet(HttpServletRequest request, HttpServletResponse response)
+//To save as "<TOMCAT_HOME>\webapps\hello\WEB-INF\classes\QueryServlet.java".
+	// The doGet() runs once per HTTP GET request to this servlet.
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
 	   throws ServletException, IOException {
 	   // Set the MIME type for the response message
 	   response.setContentType("text/html");
 	   // Get a output writer to write the response message into the network socket
 	   PrintWriter out = response.getWriter();
-
+	   String databaseURL = "jdbc:mysql://localhost:3306/ebookshop?user=tyrata&password=zf29zf29";
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try {
 	       // Step 1: Allocate a database Connection object
 	       Class.forName("com.mysql.jdbc.Driver");  // Needed for JDK9/Tomcat9
-	       conn = DriverManager.getConnection(
-						  "jdbc:mysql://localhost:3306/ebookshop?useSSL=false", "tyrata", "zf29zf29"); // <== Check!
+	       conn = DriverManager.getConnection(databaseURL);
+	       // conn = DriverManager.getConnection(
+	       //				  "jdbc:mysql://localhost:3306/ebookshop?useSSL=false", "tyrata", "zf29zf29"); // <== Check!
 	       // database-URL(hostname, port, default database), username, password
 
 	       // Step 2: Allocate a Statement object within the Connection
@@ -63,5 +75,5 @@ public class QueryServlet extends HttpServlet {  // JDK 1.6 and above only
 		   ex.printStackTrace();
 	       }
 	   }
-       }
+    }
 }
