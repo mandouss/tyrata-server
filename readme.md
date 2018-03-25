@@ -1,16 +1,16 @@
-Great team!
+Track the progress of Tyrata Server Team on : https://trello.com/b/RIlT4NrQ/tyrata-team-sprint-2
 
-We are on our schedule of Sprint 1!
-
-We have:
-
-1 set up all the environment we need in the vcm
-
-2 built a MySQL database
-
-3 had a java program that can read and write the db
-
-Nice job team!!!!
+<h1>Sprint 2 Report</h1>
+<li>
+    <item>Tomcat 8 Configuration</item>
+    <item>Rest TBA</item>
+</li>
+<h1>Sprint 1 Report</h1>
+<li>
+<item>1-set up all the environment we need in the vcm </item>
+<item>2-built a MySQL database</item>
+<item>3-had a java program that can read and write the db </item>
+</li>
 
 FOR TEST TEAM:
 When you need to test our code, please contact us because this is environment-related code. 
@@ -26,5 +26,5 @@ there is a socket example code inside the tyrata-server/sample directory
 
 !!!! IMPORTANT  NOTE:
 The connection tool between mySQL and java can be found here: https://dev.mysql.com/downloads/connector/j/ 
-In the linux system to import a jar file to java is kind of problematic, I tried a lot of way and find for mysql-connector-java-5.1.45-bin.jar the only way to make it work is to put it in the following path:
+In the linux system to import a jar file to java is kind of problematic, I tried a lot of ways and found for mysql-connector-java-5.1.45-bin.jar the only way to make it work is to put it in the following path:
 /usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/lib/ext
