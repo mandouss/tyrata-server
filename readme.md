@@ -3,12 +3,25 @@ Track the progress of Tyrata Server Team on : https://trello.com/b/RIlT4NrQ/tyra
 <h1>Sprint 2 Report</h1>
 <li>
     <item>Tomcat 8 Configuration</item>
-    <item>Rest TBA</item>
 </li>
+
+<h2> Setting up the Database</h2>
+Build the build-in database set-up java code.
+
+User can simply run:
+'1. javac database.java'
+'2. java database'
+
+Then the program will create a database named Tyrata and set up all the tables for you, and you can also characterize your user name and password simply by modifying 
+line 8,9:
+    static final String USER = "username you want";
+    static final String PASS = "password you want";
 <h1>Sprint 1 Report</h1>
 <li>
 <item>1-set up all the environment we need in the vcm </item>
+
 <item>2-built a MySQL database</item>
+
 <item>3-had a java program that can read and write the db </item>
 </li>
 
