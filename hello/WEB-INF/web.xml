@@ -22,8 +22,8 @@
   </servlet>
 
   <servlet>
-    <servlet-name>TestXml</servlet-name>
-    <servlet-class>TestXMLAction</servlet-class>
+    <servlet-name>XMLAction</servlet-name>
+    <servlet-class>XMLAction</servlet-class>
   </servlet>
 
   
@@ -47,11 +47,9 @@
        </servlet-mapping>
 
        <servlet-mapping>
-	 <servlet-name>TestXml</servlet-name>
-	 <url-pattern>/xml</url-pattern>
+	 <servlet-name>XMLAction</servlet-name>
+	 <url-pattern>/XMLAction</url-pattern>
        </servlet-mapping>
 
-       
-       
-
+      
 </web-app>
