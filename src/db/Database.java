@@ -64,6 +64,7 @@ public class Database {
             + ")charset=utf8;";
 
     static String TIRE_sql = "CREATE TABLE IF NOT EXISTS TIRE("
+	    + "ID INT(11) NOT NULL AUTO_INCREMENT,"
             + "SENSOR_ID VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "INIT_SS_ID INT(11) NOT NULL,"
             + "CUR_SS_ID INT(11) NOT NULL,"
@@ -74,7 +75,7 @@ public class Database {
             + "AXIS_SIDE CHAR(20) NOT NULL,"
             + "AXIS_INDEX INT(11) NOT NULL,"
             + "VEHICLE_ID VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "PRIMARY KEY(SENSOR_ID)"
+            + "PRIMARY KEY(ID)"
             //+ "CONSTRAINT `TIRE_VEHICLE_ID_fk_VEHICLE_VIN` FOREIGN KEY (`VEHICLE_ID`) REFERENCES `VEHICLE` (`VIN`)"
             + ")charset=utf8;";
 
