@@ -14,7 +14,7 @@ public class XmlParser {
 	    JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
 	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 	    
-	    StringReader reader = new StringReader(xml);
+	    StringReader reader = new StringReader(recStr);
 	    Message msg = (Message) jaxbUnmarshaller.unmarshal(reader);
 	    return msg;
 		
