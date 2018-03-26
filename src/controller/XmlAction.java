@@ -29,7 +29,7 @@ public class XmlAction extends HttpServlet {  // JDK 1.6 and above only
 	   response.setContentType("text/html");
 	   // Get a output writer to write the response message into the network socket
 	   PrintWriter out = response.getWriter();
-	   String databaseURL = "jdbc:mysql://localhost:3306/ebookshop?user=tyrata&password=zf29zf29";
+	   String databaseURL = "jdbc:mysql://localhost:3306/Tyrata?user=mynewuser&password=goodPassword";
 	   Connection conn = null;
 	   Statement stmt = null;
 	   try {
@@ -47,12 +47,33 @@ public class XmlAction extends HttpServlet {  // JDK 1.6 and above only
 	       	
 			String recStr = request.getParameter("xml_data") ;
 			
-			// do parse here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+			// do parse here
             XmlParser xmlpsr = new XmlParser();
 			Message msg = xmlpsr.doParse(recStr);
 			
+			// insert msg into database
+			if(msg != null && msg.getUser() != null && msg.getUser().isValid() ) {
+				String sql = String.format( "INSERT INTO USER(NAME, EMAIL, PHONE_NUMBER) VALUES ('%s', '%s', '%s') " , 
+				msg.getUser().getName(), 
+				msg.getUser().getemail(), 
+				msg.getUser().getPhone_num()
+				);
+				ResultSet rset = stmt.executeQuery(sql);
+
+				//query auto incremented user_id and send to android
+				sql = String.format("SELECT USER_ID FROM USER WHERE EMAIL = '%s'", msg.getUser().getemail() );
+				rset = stmt.executeQuery(sql);
+				if(rset.next()) {
+					out.println(rset.getInt("USER_ID"));
+				} else {
+					out.println("Fail to insert " + msg.getUser().getName() );
+				}
+			} else {
+				out.println("Fail to insert " + msg.getUser().getName() );
+			}
+
 			// Print an HTML page as the output of the query
-			out.println("Successfully receive " + msg.getUser().getName() + "\n");
+			
 
 			// Step 4: Process the query result set
 	   } catch (SQLException ex) {

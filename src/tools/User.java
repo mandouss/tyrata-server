@@ -10,6 +10,10 @@ public class User {
 	int user_ID;
 	String phone_num;
 	
+	public boolean isValid () {
+		return name!=null && email != null && phone_num != null;
+	}
+	
 	public String getName() {
 		return name;
 	}
