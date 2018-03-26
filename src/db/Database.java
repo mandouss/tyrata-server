@@ -8,8 +8,8 @@ public class Database {
     static final String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
  
     //db user and password
-    static final String USER = "dx24";
-    static final String PASS = "651server";
+    static final String USER = "mynewuser";
+    static final String PASS = "goodPassword";
 
     static boolean create(Connection conn,String sql){
         try{
