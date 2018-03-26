@@ -52,13 +52,14 @@ public class Database {
 
     static String VEHICLE_sql = "CREATE TABLE IF NOT EXISTS VEHICLE("
             + "VIN VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "MAKE VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
+	    + "ID  INT(11) NOT NULL AUTO_INCREMENT,"
+      	    + "MAKE VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "MODEL VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "YEAR INT(11) NOT NULL,"
             + "AXIS_NUM INT(11) NOT NULL,"
             + "TIRE_NUM INT(11) NOT NULL,"
             + "USER_ID INT(11) NOT NULL,"
-            + "PRIMARY KEY(VIN)"
+            + "PRIMARY KEY(ID)"
             //+ "CONSTRAINT `VIN_USER_ID_fk_USER_USER_ID` FOREIGN KEY (`USER_ID`) REFERENCES `USER` (`USER_ID`)"
             + ")charset=utf8;";
 
@@ -111,7 +112,7 @@ public class Database {
             create(conn,SNAPSHOT_sql);
 
             //insert
-            //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) //VALUES('%s','%s','%s')","test","test@126.com","123456");
+            //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) VALUES('%s','%s','%s')","test","test@126.com","123456");
 //            insert(conn,sql);
 
             conn.close();
