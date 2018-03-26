@@ -11,9 +11,9 @@ import javax.xml.bind.Unmarshaller;
  */
 public class XmlParser {
 	public Message doParse(String recStr) {
-		JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
+	    JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
 	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-	
+	    
 	    StringReader reader = new StringReader(xml);
 	    Message msg = (Message) jaxbUnmarshaller.unmarshal(reader);
 	    return msg;
