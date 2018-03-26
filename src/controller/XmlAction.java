@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tools.XmlParser;
+import tools.*;
 
 import java.sql.*;
 
@@ -52,7 +52,7 @@ public class XmlAction extends HttpServlet {  // JDK 1.6 and above only
 			Message msg = xmlpsr.doParse(recStr);
 			
 			// Print an HTML page as the output of the query
-			out.println("Successfully receive " + msg.User.getName() + "\n");
+			out.println("Successfully receive " + msg.getUser().getName() + "\n");
 
 			// Step 4: Process the query result set
 	   } catch (SQLException ex) {
