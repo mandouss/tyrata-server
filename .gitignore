@@ -6,3 +6,4 @@
 .classpath
 #ignore project config
 .project
+/.metadata/
