@@ -5,11 +5,11 @@ import java.sql.*;
 public class Database {
 	
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
+    static final String DB_URL = "jdbc:mysql://localhost:8080/Tyrata";
  
     //db user and password
     static final String USER = "mynewuser";
-    static final String PASS = "goodPassword";
+    static final String PASS = "passw0rd";
 
     static boolean create(Connection conn,String sql){
         try{
