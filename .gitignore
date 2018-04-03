@@ -1,0 +1,9 @@
+#ignore build dir
+/build/*
+#ignore eclipse settings
+.settings/*
+#ignore classpath
+.classpath
+#ignore project config
+.project
+/.metadata/

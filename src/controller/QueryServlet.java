@@ -1,14 +1,25 @@
-// To save as "<TOMCAT_HOME>\webapps\hello\WEB-INF\classes\QueryServlet.java".
-import java.io.*;
+package controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
 
+/**
+ * Servlet implementation class QueryServlet\
+ * Author : Zizhao Fang
+ */
+@WebServlet("/QueryServlet")
 public class QueryServlet extends HttpServlet {  // JDK 1.6 and above only
-
-    // The doGet() runs once per HTTP GET request to this servlet.
-       @Override
-       public void doGet(HttpServletRequest request, HttpServletResponse response)
+//To save as "<TOMCAT_HOME>\webapps\hello\WEB-INF\classes\QueryServlet.java".
+	// The doGet() runs once per HTTP GET request to this servlet.
+    @Override
+    public void doGet(HttpServletRequest request, HttpServletResponse response)
 	   throws ServletException, IOException {
 	   // Set the MIME type for the response message
 	   response.setContentType("text/html");
@@ -64,5 +75,5 @@ public class QueryServlet extends HttpServlet {  // JDK 1.6 and above only
 		   ex.printStackTrace();
 	       }
 	   }
-       }
+    }
 }
