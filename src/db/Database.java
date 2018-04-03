@@ -5,7 +5,7 @@ import java.sql.*;
 public class Database {
 	
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-    static final String DB_URL = "jdbc:mysql://localhost:8080/Tyrata";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
  
     //db user and password
     static final String USER = "mynewuser";
