@@ -1,5 +1,4 @@
-
-
+Follow our progress on : https://trello.com/b/mUTN1Ihj/tyrata-team-sprint-3
 # Tyrata Server
 
 One Paragraph of project description goes here
