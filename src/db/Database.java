@@ -84,7 +84,6 @@ public class Database {
             + "MILEAGE DOUBLE NOT NULL,"
             + "S11 DOUBLE NOT NULL,"
             + "TIMESTAMP VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "MODEL VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PRESSURE DOUBLE NOT NULL,"
             + "OUTLIER BOOL NOT NULL,"
             + "THICKNESS DOUBLE NOT NULL,"

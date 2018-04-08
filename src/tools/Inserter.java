@@ -14,7 +14,7 @@ public abstract class Inserter {
 		try {
 			con.setAutoCommit(false);
 			String query = "INSERT INTO SNAPSHOT("
-		            + "MILEAGE, S11, TIMESTAMP, MODEL, PRESSURE,"
+		            + "MILEAGE, S11, TIMESTAMP, PRESSURE,"
 		            + "OUTLIER, THICKNESS, EOL, TIME_TO_REPLACEMENT,"
 		            + "LONG_, LAT, TIRE_ID) VALUES ("
 		            + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -22,15 +22,14 @@ public abstract class Inserter {
 			psmt.setDouble(1, ss.getMileage());
 			psmt.setDouble(2, ss.getS11());
 			psmt.setString(3, ss.getTimestamp());
-			psmt.setString(4, "MODEL HERE");
-			psmt.setDouble(5, ss.getPressure());
-			psmt.setBoolean(6,  ss.isOutlier());
-			psmt.setDouble(7, ss.getThickness());
-			psmt.setString(8, ss.getEol());
-			psmt.setString(9, ss.getTime_to_replacement());
-			psmt.setDouble(10, ss.getLongtitude());
-			psmt.setDouble(11, ss.getLatitude());
-			psmt.setInt(12, ss.getTire_id());
+			psmt.setDouble(4, ss.getPressure());
+			psmt.setBoolean(5,  ss.isOutlier());
+			psmt.setDouble(6, ss.getThickness());
+			psmt.setString(7, ss.getEol());
+			psmt.setString(8, ss.getTime_to_replacement());
+			psmt.setDouble(9, ss.getLongtitude());
+			psmt.setDouble(10, ss.getLatitude());
+			psmt.setInt(11, ss.getTire_id());
 			psmt.addBatch();
 			psmt.executeBatch();
 			con.commit();
@@ -53,20 +52,21 @@ public abstract class Inserter {
 		try {
 			con.setAutoCommit(false);
 			String query= "INSERT INTO TIRE("
-		            + "INIT_SS_ID, CUR_SS_ID, MANUFACTURER,"
+		            + "INIT_SS_ID,SENSOR_ID, CUR_SS_ID, MANUFACTURER,"
 		            + "MODEL, SKU, AXIS_ROW, AXIS_SIDE, AXIS_INDEX,"
 		            + "VEHICLE_ID) VALUES ("
 		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			psmt = con.prepareStatement(query);
 			psmt.setInt(1, t.getInit_ss_id());
-			psmt.setInt(2, t.getCur_ss_id());
-			psmt.setString(3, t.getManufacturer());
-			psmt.setString(4, t.getModel());
-			psmt.setString(5, t.getSku());
-			psmt.setInt(6,  t.getAxis_row());
-			psmt.setString(7, t.getAxis_side());
-			psmt.setInt(8, t.getAxis_index());
-			psmt.setInt(9, t.getVehicle_id());
+			psmt.setString(2, t.getSensor_id());
+			psmt.setInt(3, t.getCur_ss_id());
+			psmt.setString(4, t.getManufacturer());
+			psmt.setString(5, t.getModel());
+			psmt.setString(6, t.getSku());
+			psmt.setInt(7,  t.getAxis_row());
+			psmt.setString(8, t.getAxis_side());
+			psmt.setInt(9, t.getAxis_index());
+			psmt.setInt(10, t.getVehicle_id());
 			psmt.addBatch();
 			psmt.executeBatch();
 			con.commit();
@@ -92,7 +92,7 @@ public abstract class Inserter {
 		            + "VIN, MAKE, MODEL, YEAR, AXIS_NUM, TIRE_NUM, USER_ID)"
 		            + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 			psmt = con.prepareStatement(query);
-			psmt.setInt(1, v.getVin());
+			psmt.setString(1, v.getVin());
 			psmt.setString(2, v.getMake());
 			psmt.setString(3, v.getModel());
 			psmt.setInt(4, v.getYear());
