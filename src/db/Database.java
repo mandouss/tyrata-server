@@ -96,6 +96,28 @@ public class Database {
             + "PRIMARY KEY(ID)"
             //+ "CONSTRAINT `SNAPSHOT_ID_fk_TIRE_SENSOR_ID` FOREIGN KEY (`TIRE_ID`) REFERENCES `TIRE` (`SENSOR_ID`)"
             + ")charset=utf8;";
+
+    public static void dbcreate(){
+        Connection conn = null;
+        try{
+            // registre JDBC 
+            Class.forName("com.mysql.jdbc.Driver");
+	    System.out.println("connect db");
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);        
+            //create table
+            create(conn,USER_sql);
+            create(conn,VEHICLE_sql);
+            create(conn,TIRE_sql);
+            create(conn,SNAPSHOT_sql);
+	    conn.close();
+	}catch(SQLException se){
+	    se.printStackTrace();
+        }catch(Exception e){
+            e.printStackTrace();
+        }	
+    }
+
+    
  
     public static void main(String[] args) {
         Connection conn = null;
@@ -113,8 +135,8 @@ public class Database {
             create(conn,SNAPSHOT_sql);
 
             //insert
-            //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) VALUES('%s','%s','%s')","test","test@126.com","123456");
-//            insert(conn,sql);
+            String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) VALUES('%s','%s','%s')","test","test@126.com","123456");
+            insert(conn,sql);
 
             conn.close();
         }catch(SQLException se){
