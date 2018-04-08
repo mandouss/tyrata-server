@@ -5,46 +5,67 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	
-	String name;
-	String email;
-	int user_ID;
-	String phone_num;
+    String name;
+    String email;
+    int user_ID;
+    String phone_num;
+    String hash;
+    String salt;
+   
 	
-	public boolean isValid () {
-		return name!=null && email != null && phone_num != null;
-	}
+    public boolean isValid () {
+	return name!=null && email != null && phone_num != null;
+    }
+    
+    public String getName() {
+	return name;
+    }
+    
+    public String getEmail() {
+	return email;
+    }
 	
-	public String getName() {
-		return name;
-	}
-	
-	public String getemail() {
-		return email;
-	}
-	
-	public int getUser_ID() {
-		return user_ID;
-	}
-	
-	public String getPhone_num() {
-		return phone_num;
-	}
-	
-	@XmlElement
-	public void setName(String name) {
-		this.name = name;
-	}
-	@XmlElement
-	public void setemail(String email) {
-		this.email = email;
-	}
-	@XmlElement
-	public void setUser_ID(int user_ID) {
-		this.user_ID = user_ID;
-	}
-	@XmlElement
-	public void setPhone_num(String phone_num) {
-		this.phone_num = phone_num;
-	}
+    public int getUser_ID() {
+	return user_ID;
+    }
+    
+    public String getPhone_num() {
+	return phone_num;
+    }
 
+    public String getHash() {
+	return hash;
+    }
+
+    public String getSalt() {
+	return salt;
+    }
+    
+	
+    @XmlElement
+    public void setName(String name) {
+	this.name = name;
+    }
+    @XmlElement
+    public void setEmail(String email) {
+	this.email = email;
+    }
+    @XmlElement
+    public void setUser_ID(int user_ID) {
+	this.user_ID = user_ID;
+    }
+    @XmlElement
+    public void setPhone_num(String phone_num) {
+	this.phone_num = phone_num;
+    }
+    @XmlElement
+    public void setHash(String hash) {
+	this.hash = hash;
+    }
+    @XmlElement
+    public void setSalt(String salt) {
+	this.salt = salt;
+    }
+    
+    
 }

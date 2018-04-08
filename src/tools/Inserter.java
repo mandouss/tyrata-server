@@ -7,8 +7,13 @@ import models.*;
  * @author aicmez
  *
  */
+class MyException extends Exception{
+    public MyException(String message){
+	super(message); 
+    }
+}
+
 public abstract class Inserter {
-	
 	public static boolean insertSnapshot(Snapshot ss, Connection con) {
 		PreparedStatement psmt = null;
 		try {
@@ -117,32 +122,33 @@ public abstract class Inserter {
 		return true;
 	}
 	public static boolean insertUser(User u, Connection con) {
-		PreparedStatement psmt = null;
+	    PreparedStatement psmt = null;
+	    try {
+		String query= "INSERT INTO USER("
+		    + "NAME, EMAIL, PHONE_NUMBER)"
+		    + "VALUES ( ?, ?, ?, ?, ?);";
+		psmt = con.prepareStatement(query);
+		psmt.setString(1, u.getName());
+		psmt.setString(2, u.getemail());
+		psmt.setString(3, u.getPhone_num());
+		psmt.setString(4,u.getHash());
+		psmt.setString(5, u.getSalt());
+		psmt.addBatch();
+		psmt.executeBatch();
+		con.commit();
+	    } catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		try {
-			con.setAutoCommit(false);
-			String query= "INSERT INTO USER("
-		            + "NAME, EMAIL, PHONE_NUMBER)"
-		            + "VALUES ( ?, ?, ?);";
-			psmt = con.prepareStatement(query);
-			psmt.setString(1, u.getName());
-			psmt.setString(2, u.getemail());
-			psmt.setString(3, u.getPhone_num());
-			psmt.addBatch();
-			psmt.executeBatch();
-			con.commit();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			try {
-				con.rollback();
-				psmt.close();
-			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+		    con.rollback();
+		    psmt.close();
+		} catch (SQLException e1) {
+		    // TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-			return false;
 		}
-		return true;
+		return false;
+	    }
+	    return true;
 		
 	}
 }

@@ -47,7 +47,9 @@ public class Database {
             + "NAME VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "EMAIL VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PHONE_NUMBER VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "PRIMARY KEY(USER_ID)"
+            + "PRIMARY KEY(USER_ID),"
+	    + "HASH VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
+	    + "SALT VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + ")charset=utf8;";
 
     static String VEHICLE_sql = "CREATE TABLE IF NOT EXISTS VEHICLE("
@@ -103,17 +105,18 @@ public class Database {
         
             System.out.println("connect db");
             conn = DriverManager.getConnection(DB_URL,USER,PASS);
-        
+	    
             //create table
             create(conn,USER_sql);
             create(conn,VEHICLE_sql);
             create(conn,TIRE_sql);
             create(conn,SNAPSHOT_sql);
-
+	    
             //insert
-            //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) //VALUES('%s','%s','%s')","test","test@126.com","123456");
-//            insert(conn,sql);
-
+	    /*
+            String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER,HASH,SALT) //VALUES('%s','%s','%s','%s','%s')","dx","dx24@duke.edu","123456","12345","12345");
+	    insert(conn,sql);
+	    */
             conn.close();
         }catch(SQLException se){
             se.printStackTrace();
