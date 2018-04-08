@@ -46,7 +46,6 @@ public class Database {
             + "NAME VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci' UNIQUE,"
             + "EMAIL VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PHONE_NUMBER VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "PRIMARY KEY(USER_ID),"
 	        + "HASH VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
 	        + "SALT VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PRIMARY KEY(EMAIL)"

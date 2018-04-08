@@ -147,8 +147,10 @@ public abstract class Inserter {
 		            + "VALUES ( ?, ?, ?, ?, ?);";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, u.getName());
-			psmt.setString(2, u.getemail());
+			psmt.setString(2, u.getEmail());
 			psmt.setString(3, u.getPhone_num());
+			psmt.setString(4, u.getSalt());
+			psmt.setString(5, u.getHash());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();

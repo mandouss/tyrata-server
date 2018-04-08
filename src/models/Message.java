@@ -14,6 +14,7 @@ public class Message {
     Tire tire;
     Snapshot snapshot;
     Authentication authentication;
+    int id;
     
     public Authentication getAuthentication(){
 	return authentication;
@@ -33,11 +34,11 @@ public class Message {
     }
     
     public int getId() {
-	return id;
+    	return id;
     }
     @XmlElement
     public void setId(int id) {
-	this.id = id;
+    	this.id = id;
     }
     public Snapshot getSnapshot() {
 	return snapshot;

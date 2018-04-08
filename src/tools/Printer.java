@@ -3,6 +3,7 @@ package tools;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -24,6 +25,25 @@ public abstract class Printer {
 	public static String getSalt(String email) {
 		PreparedStatement psmt = null;
 		connectDatabase();
+		String query= "SELECT SALT FROM USER"
+	            + " WHERE EMAIL=?;";
+		
+		try {
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, email);
+			psmt.addBatch();
+			ResultSet rs = psmt.executeQuery();
+			String saltstring = "";
+			if (rs.next()) {
+				saltstring = rs.getString("SALT");
+			}
+			conn.close();
+			return saltstring;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 	
@@ -49,7 +69,23 @@ public abstract class Printer {
 	public static boolean authenticate(String email, String hash, String salt) {
 		PreparedStatement psmt = null;
 		connectDatabase();
-		return false;
-	}
-	
-}	//Get salt - Do Authentication - Get email and get the all the vehicle, tire, snapshot
+		String query= "SELECT SALT FROM USER"
+	            + " WHERE EMAIL=? AND HASH=? AND SALT=?;";
+		
+		try {
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, email);
+			psmt.setString(2, hash);
+			psmt.setString(3, salt);
+			psmt.addBatch();
+			ResultSet rs = psmt.executeQuery();
+			boolean is_authenticated = rs.next();
+			conn.close();
+			return is_authenticated;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+	}	
+}

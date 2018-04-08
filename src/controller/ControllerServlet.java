@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import models.*;
 import tools.Inserter;
+import tools.Printer;
 /**
  * Servlet implementation class ControllerServlet
  * @author aicmez
@@ -34,7 +35,9 @@ public class ControllerServlet extends HttpServlet {
 		try{
             
             System.out.println("Connected to database!");
-
+            
+            System.out.println(Printer.getSalt("arda@gmail.com"));
+            System.out.println(Printer.authenticate("arda@gmail.com", "12345", "Arda's salt"));
         }catch(Exception e){
             e.printStackTrace();
         }
