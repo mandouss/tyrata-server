@@ -73,5 +73,26 @@ public class Message {
     public void setVehicle(Vehicle vehicle) {
 	this.vehicle = vehicle;
     }
+
+    public static String getType(){
+	if(user != NULL && vehicle == NULL && tire == NULL && snapshot == NULL  && authentication == NULL){
+	    return "User";
+	}
+	if(user == NULL && vehicle != NULL && tire == NULL && snapshot == NULL  && authentication == NULL){
+	    return "Vehicle";
+	}
+	if(user == NULL && vehicle == NULL && tire != NULL && snapshot == NULL  && authentication == NULL){
+	    return "Tire";
+	}
+	if(user == NULL && vehicle == NULL && tire == NULL && snapshot != NULL  && authentication == NULL){
+	    return "Snapshot";
+	}
+	if(user == NULL && vehicle == NULL && tire == NULL && snapshot = NULL  && authentication != NULL){
+	    return "Authentication";
+	}
+	return null;
+
+    }
 	
 }
+
