@@ -12,19 +12,19 @@ import models.Message;
  * Author : Zizhao Fang
  */
 public class XmlParser {
-	public Message doParse(String recStr) {
-		JAXBContext jaxbContext;
-		try {
+	public static Message doParse(String recStr) {
+	    JAXBContext jaxbContext;
+			Message msg;
+	    try {
 			jaxbContext = JAXBContext.newInstance(Message.class);
-			StringReader reader = new StringReader(recStr);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		    Message msg = (Message) jaxbUnmarshaller.unmarshal(reader);
+			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();	
+		    StringReader reader = new StringReader(recStr);
+		    msg = (Message) jaxbUnmarshaller.unmarshal(reader);
 		    return msg;
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return null;
 		}
-	    		
+		return null;
 	}
 }

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * */
 @XmlRootElement
 public class Vehicle {
-	int vin;
+	String vin;
 	int id;
 	String make;
 	String model;
@@ -51,11 +51,11 @@ public class Vehicle {
 	}
 
 	
-	public int getVin() {
+	public String getVin() {
 		return vin;
 	}
 	@XmlElement
-	public void setVin(int vin) {
+	public void setVin(String vin) {
 		this.vin = vin;
 	}
 	public int getYear() {

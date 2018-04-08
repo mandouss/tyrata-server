@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Tire {
 	int id;
-	int sensor_id;
+	String sensor_id;
 	String manufacturer;
 	String model;
 	String sku;
@@ -28,11 +28,11 @@ public class Tire {
 		this.id = id;
 	}
 	
-	public int getSensor_id() {
+	public String getSensor_id() {
 		return sensor_id;
 	}
 	@XmlElement
-	public void setSensor_id(int sensor_id) {
+	public void setSensor_id(String sensor_id) {
 		this.sensor_id = sensor_id;
 	}
 	

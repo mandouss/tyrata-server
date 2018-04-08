@@ -7,44 +7,52 @@ import models.*;
  * @author aicmez
  *
  */
-class MyException extends Exception{
-    public MyException(String message){
-	super(message); 
-    }
-}
 
 public abstract class Inserter {
-	public static boolean insertSnapshot(Snapshot ss, Connection con) {
+	private static Connection conn = null;
+	private static void connectDatabase () {
+		final String USER = "mynewuser";
+	    final String PASS = "passw0rd";
+	    String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
+	    try {
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static boolean insertSnapshot(Snapshot ss) {
 		PreparedStatement psmt = null;
+		connectDatabase();
 		try {
-			con.setAutoCommit(false);
+			conn.setAutoCommit(false);
 			String query = "INSERT INTO SNAPSHOT("
-		            + "MILEAGE, S11, TIMESTAMP, MODEL, PRESSURE,"
+		            + "MILEAGE, S11, TIMESTAMP, PRESSURE,"
 		            + "OUTLIER, THICKNESS, EOL, TIME_TO_REPLACEMENT,"
-		            + "LONG_, LAT, TIRE_ID) VALUES ("
-		            + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-			psmt = con.prepareStatement(query);
+		            + "LONGITUDE, LATITUDE, TIRE_ID) VALUES ("
+		            + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?);";
+			psmt = conn.prepareStatement(query);
 			psmt.setDouble(1, ss.getMileage());
 			psmt.setDouble(2, ss.getS11());
 			psmt.setString(3, ss.getTimestamp());
-			psmt.setString(4, "MODEL HERE");
-			psmt.setDouble(5, ss.getPressure());
-			psmt.setBoolean(6,  ss.isOutlier());
-			psmt.setDouble(7, ss.getThickness());
-			psmt.setString(8, ss.getEol());
-			psmt.setString(9, ss.getTime_to_replacement());
-			psmt.setDouble(10, ss.getLongtitude());
-			psmt.setDouble(11, ss.getLatitude());
-			psmt.setInt(12, ss.getTire_id());
+			psmt.setDouble(4, ss.getPressure());
+			psmt.setBoolean(5,  ss.isOutlier());
+			psmt.setDouble(6, ss.getThickness());
+			psmt.setString(7, ss.getEol());
+			psmt.setString(8, ss.getTime_to_replacement());
+			psmt.setDouble(9, ss.getLongtitude());
+			psmt.setDouble(10, ss.getLatitude());
+			psmt.setInt(11, ss.getTire_id());
 			psmt.addBatch();
 			psmt.executeBatch();
-			con.commit();
+			conn.commit();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
-				con.rollback();
+				conn.rollback();
 				psmt.close();
+				conn.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -53,34 +61,39 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertTire(Tire t, Connection con) {
+	public static boolean insertTire(Tire t) {
 		PreparedStatement psmt = null;
+		connectDatabase();
 		try {
-			con.setAutoCommit(false);
+			conn.setAutoCommit(false);
 			String query= "INSERT INTO TIRE("
-		            + "INIT_SS_ID, CUR_SS_ID, MANUFACTURER,"
+		            + "INIT_SS_ID,SENSOR_ID, CUR_SS_ID, MANUFACTURER,"
 		            + "MODEL, SKU, AXIS_ROW, AXIS_SIDE, AXIS_INDEX,"
-		            + "VEHICLE_ID) VALUES ("
-		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-			psmt = con.prepareStatement(query);
+		            + "VEHICLE_ID, INIT_THICKNESS) VALUES ("
+		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			psmt = conn.prepareStatement(query);
 			psmt.setInt(1, t.getInit_ss_id());
-			psmt.setInt(2, t.getCur_ss_id());
-			psmt.setString(3, t.getManufacturer());
-			psmt.setString(4, t.getModel());
-			psmt.setString(5, t.getSku());
-			psmt.setInt(6,  t.getAxis_row());
-			psmt.setString(7, t.getAxis_side());
-			psmt.setInt(8, t.getAxis_index());
-			psmt.setInt(9, t.getVehicle_id());
+			psmt.setString(2, t.getSensor_id());
+			psmt.setInt(3, t.getCur_ss_id());
+			psmt.setString(4, t.getManufacturer());
+			psmt.setString(5, t.getModel());
+			psmt.setString(6, t.getSku());
+			psmt.setInt(7,  t.getAxis_row());
+			psmt.setString(8, t.getAxis_side());
+			psmt.setInt(9, t.getAxis_index());
+			psmt.setInt(10, t.getVehicle_id());
+			psmt.setDouble(11, t.getInit_thickness());
 			psmt.addBatch();
 			psmt.executeBatch();
-			con.commit();
+			conn.commit();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
-				con.rollback();
+				conn.rollback();
 				psmt.close();
+				conn.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -89,15 +102,16 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertVehicle(Vehicle v, Connection con) {
+	public static boolean insertVehicle(Vehicle v) {
 		PreparedStatement psmt = null;
+		connectDatabase();
 		try {
-			con.setAutoCommit(false);
+			conn.setAutoCommit(false);
 			String query= "INSERT INTO VEHICLE("
 		            + "VIN, MAKE, MODEL, YEAR, AXIS_NUM, TIRE_NUM, USER_ID)"
 		            + "VALUES (?, ?, ?, ?, ?, ?, ?);";
-			psmt = con.prepareStatement(query);
-			psmt.setInt(1, v.getVin());
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, v.getVin());
 			psmt.setString(2, v.getMake());
 			psmt.setString(3, v.getModel());
 			psmt.setInt(4, v.getYear());
@@ -106,13 +120,15 @@ public abstract class Inserter {
 			psmt.setInt(7,  v.getUser_id());
 			psmt.addBatch();
 			psmt.executeBatch();
-			con.commit();
+			conn.commit();
+			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
-				con.rollback();
+				conn.rollback();
 				psmt.close();
+				conn.close();
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -121,34 +137,35 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertUser(User u, Connection con) {
-	    PreparedStatement psmt = null;
-	    try {
-		String query= "INSERT INTO USER("
-		    + "NAME, EMAIL, PHONE_NUMBER)"
-		    + "VALUES ( ?, ?, ?, ?, ?);";
-		psmt = con.prepareStatement(query);
-		psmt.setString(1, u.getName());
-		psmt.setString(2, u.getemail());
-		psmt.setString(3, u.getPhone_num());
-		psmt.setString(4,u.getHash());
-		psmt.setString(5, u.getSalt());
-		psmt.addBatch();
-		psmt.executeBatch();
-		con.commit();
-	    } catch (SQLException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
+	public static boolean insertUser(User u) {
+		PreparedStatement psmt = null;
+		connectDatabase();
 		try {
-		    con.rollback();
-		    psmt.close();
-		} catch (SQLException e1) {
-		    // TODO Auto-generated catch block
+			conn.setAutoCommit(false);
+			String query= "INSERT INTO USER("
+		            + "NAME, EMAIL, PHONE_NUMBER, SALT, HASH)"
+		            + "VALUES ( ?, ?, ?, ?, ?);";
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, u.getName());
+			psmt.setString(2, u.getemail());
+			psmt.setString(3, u.getPhone_num());
+			psmt.addBatch();
+			psmt.executeBatch();
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				psmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
 				e1.printStackTrace();
-		}
-		return false;
+		    }
+		    return false;
 	    }
 	    return true;
-		
 	}
 }

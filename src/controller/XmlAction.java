@@ -41,11 +41,11 @@ public class XmlAction extends HttpServlet {  // JDK 1.6 and above only
        u = msg.getUser();
        Connection conn = null;
        try{
-           // registre JDBC 
+           // register JDBC 
            Class.forName(JDBC_DRIVER);
            System.out.println("connect db");
            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-           Inserter.insertUser(u, conn);
+           Inserter.insertUser(u);
            out.println( "<h1>User addition "+ u.getemail() + " </h1>" );
            //LogRecorder.recordLog("insert to database successfully", "/home/vcm/Tyrata.log");// PERMISSION DENIED
        }catch(SQLException se){

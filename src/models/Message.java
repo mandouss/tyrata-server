@@ -13,6 +13,7 @@ public class Message {
 	Vehicle vehicle;
 	Tire tire;
 	Snapshot snapshot;
+	int id;
 	
 	public Tire getTire() {
 		return tire;
@@ -22,6 +23,13 @@ public class Message {
 		this.tire = tire;
 	}
 
+	public int getId() {
+		return id;
+	}
+	@XmlElement
+	public void setId(int id) {
+		this.id = id;
+	}
 	public Snapshot getSnapshot() {
 		return snapshot;
 	}
