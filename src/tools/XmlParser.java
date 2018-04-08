@@ -5,6 +5,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import models.Message;
+
 /**
  * Servlet implementation class XmlAction
  * Author : Zizhao Fang
@@ -19,4 +21,3 @@ public class XmlParser {
 		
 	}
 }
-

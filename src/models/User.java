@@ -1,4 +1,4 @@
-
+package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -9,6 +9,10 @@ public class User {
 	String email;
 	int user_ID;
 	String phone_num;
+	
+	public boolean isValid () {
+		return name!=null && email != null && phone_num != null;
+	}
 	
 	public String getName() {
 		return name;
