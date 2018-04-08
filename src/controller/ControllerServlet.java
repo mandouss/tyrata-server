@@ -37,7 +37,12 @@ public class ControllerServlet extends HttpServlet {
 		response.setContentType("text/html");
         PrintWriter printWriter  = response.getWriter();
         printWriter.println("<h1>User addition to DB!</h1>");
+        
         User u = new User();
+        Vehicle v = new Vehicle();
+        Tire t = new Tire();
+        Snapshot s = new Snapshot();
+        
         String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
         String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
      
@@ -56,15 +61,44 @@ public class ControllerServlet extends HttpServlet {
             u.setName("User bla bla");
             u.setPhone_num("phone");
             Inserter.insertUser(u, conn);
-            Vehicle v = new Vehicle();
+            
+            v.setId(1);
             v.setAxis_num(4);
             v.setMake("MAKE");
             v.setModel("MODEL");
             v.setTire_num(3);
-            v.setUser_id(5);
+            v.setUser_id(1);
             v.setYear(2016);
-            v.setVin(71223);
+            v.setVin("71223");
             Inserter.insertVehicle(v, conn);
+            
+            t.setId(1);
+            t.setSensor_id("TEST_SENSORID");
+            t.setManufacturer("TEST_manufacturer");
+            t.setModel("test_model");
+            t.setSku("test_sku");
+            t.setVehicle_id(1);
+            t.setAxis_row(994);
+            t.setAxis_side("test_axis_side");
+            t.setAxis_index(119);
+            t.setInit_ss_id(8888);
+            t.setCur_ss_id(0273);
+            t.setInit_thickness(44.23);
+            Inserter.insertTire(t, conn);
+            
+            s.setId(1);
+            s.setS11(111.22);
+            s.setTimestamp("test_timestamp");
+            s.setMileage(342.33);
+            s.setPressure(732.2);
+            s.setTire_id(1);
+            s.setOutlier(true);
+            s.setThickness(88.123);
+            s.setEol("test_eol");
+            s.setTime_to_replacement("test_time_replace");
+            s.setLongtitude(643.33);
+            s.setLatitude(3424.3423);
+            Inserter.insertSnapshot(s, conn);
             
             //insert
             //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) //VALUES('%s','%s','%s')","test","test@126.com","123456");
