@@ -19,15 +19,23 @@ public class Authentication{
     }
 
     @XmlElement
-    public void setEmail(){
+    public void setEmail(String email){
 	this.email = email;
     }
     @XmlElement
-    public void setSalt(){
+    public void setSalt(String salt){
 	this.salt = salt;
     }
     @XmlElement
-    public void setHash(){
+    public void setHash(String hash){
 	this.hash = hash;
     }
+
+    public boolean haveHash(){
+	if(hash != NULL){
+	    return true;
+	}
+	return false;
+    }
+    
 }
