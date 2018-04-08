@@ -13,18 +13,11 @@ import models.Message;
  */
 public class XmlParser {
 	public Message doParse(String recStr) {
-		JAXBContext jaxbContext;
-		try {
-			jaxbContext = JAXBContext.newInstance(Message.class);
-			StringReader reader = new StringReader(recStr);
-			Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
-		    Message msg = (Message) jaxbUnmarshaller.unmarshal(reader);
-		    return msg;
-		} catch (JAXBException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	    		
+	    JAXBContext jaxbContext = JAXBContext.newInstance(Message.class);
+	    Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();	
+	    StringReader reader = new StringReader(recStr);
+	    Message msg = (Message) jaxbUnmarshaller.unmarshal(reader);
+	    return msg;
+		
 	}
 }
