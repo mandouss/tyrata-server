@@ -16,7 +16,7 @@ public abstract class Inserter {
 			String query = "INSERT INTO SNAPSHOT("
 		            + "MILEAGE, S11, TIMESTAMP, PRESSURE,"
 		            + "OUTLIER, THICKNESS, EOL, TIME_TO_REPLACEMENT,"
-		            + "LONG_, LAT, TIRE_ID) VALUES ("
+		            + "LONGITUDE, LATITUDE, TIRE_ID) VALUES ("
 		            + "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			psmt = con.prepareStatement(query);
 			psmt.setDouble(1, ss.getMileage());
@@ -54,7 +54,7 @@ public abstract class Inserter {
 			String query= "INSERT INTO TIRE("
 		            + "INIT_SS_ID,SENSOR_ID, CUR_SS_ID, MANUFACTURER,"
 		            + "MODEL, SKU, AXIS_ROW, AXIS_SIDE, AXIS_INDEX,"
-		            + "VEHICLE_ID) VALUES ("
+		            + "VEHICLE_ID, INIT_THICKNESS) VALUES ("
 		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			psmt = con.prepareStatement(query);
 			psmt.setInt(1, t.getInit_ss_id());
@@ -67,6 +67,7 @@ public abstract class Inserter {
 			psmt.setString(8, t.getAxis_side());
 			psmt.setInt(9, t.getAxis_index());
 			psmt.setInt(10, t.getVehicle_id());
+			psmt.setDouble(11, t.getInit_thickness());
 			psmt.addBatch();
 			psmt.executeBatch();
 			con.commit();

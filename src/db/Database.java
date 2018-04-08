@@ -75,6 +75,7 @@ public class Database {
             + "AXIS_SIDE CHAR(20) NOT NULL,"
             + "AXIS_INDEX INT(11) NOT NULL,"
             + "VEHICLE_ID VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',"
+            + "INIT_THICKNESS DOUBLE NOT NULL,"
             + "PRIMARY KEY(ID)"
             //+ "CONSTRAINT `TIRE_VEHICLE_ID_fk_VEHICLE_VIN` FOREIGN KEY (`VEHICLE_ID`) REFERENCES `VEHICLE` (`VIN`)"
             + ")charset=utf8;";
