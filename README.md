@@ -93,11 +93,11 @@ export CATALINA_BASE="/var/lib/tomcat8"
 ##### Set the TCP Port Number
 
 ```Bash
-cd /var/lib/tomcat8
+cd /var/lib/tomcat8/conf
 sudo nano server.xml
 ```
 
-The default TCP port number configured in Tomcat is 8080, you may choose any number between 1024 and 65535, which is not used by an existing application. We shall choose 9999 in this article. (For production server, you should use port 80, which is pre-assigned to HTTP server as the default port number.)
+The default TCP port number configured in Tomcat is 8080, you may choose any number between 1024 and 65535, which is not used by an existing application. We shall choose 9999 in this document. (For production server, you should use port 80, which is pre-assigned to HTTP server as the default port number.)
 
 Locate the following lines (around Line 69) that define the HTTP connector, and change `port="8080"` to `port="9999"`.
 
@@ -117,7 +117,7 @@ Locate the following lines (around Line 69) that define the HTTP connector, and 
 ##### **Enabling Directory Listing**
 
 ```Bash
-sudo nano conf\web.xml
+sudo nano web.xml
 ```
 
 We shall enable directory listing by changing "`listings`" from "`false`" to "`true`" for the "`default`" servlet. This is handy for test system, but not for production system for security reasons.
@@ -143,7 +143,7 @@ Locate the following lines (around Line 108) that define the "default" servlet; 
 ##### **Enabling Automatic Reload**
 
 ```Bash
-sudo nano conf\context.xml
+sudo nano context.xml
 ```
 
 We shall add the attribute `reloadable="true"` to the `<Context>` element to enable automatic reload after code changes. Again, this is handy for test system but not for production, due to the overhead of detecting changes.
