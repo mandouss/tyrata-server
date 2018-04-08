@@ -7,6 +7,7 @@ import models.*;
  * @author aicmez
  *
  */
+
 public abstract class Inserter {
 	private static Connection conn = null;
 	private static void connectDatabase () {
@@ -142,8 +143,8 @@ public abstract class Inserter {
 		try {
 			conn.setAutoCommit(false);
 			String query= "INSERT INTO USER("
-		            + "NAME, EMAIL, PHONE_NUMBER)"
-		            + "VALUES ( ?, ?, ?);";
+		            + "NAME, EMAIL, PHONE_NUMBER, SALT, HASH)"
+		            + "VALUES ( ?, ?, ?, ?, ?);";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, u.getName());
 			psmt.setString(2, u.getemail());
@@ -162,9 +163,9 @@ public abstract class Inserter {
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
-			}
-			return false;
-		}
-		return true;	
+		    }
+		    return false;
+	    }
+	    return true;
 	}
 }
