@@ -15,13 +15,12 @@ import models.*;
 import tools.Inserter;
 /**
  * Servlet implementation class ControllerServlet
- * Author : Arda Icmez
+ * @author aicmez
  */
 @WebServlet("/ControllerServlet")
 public class ControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-    /**
+	/**
      * Default constructor. 
      */
     public ControllerServlet() {
@@ -32,46 +31,10 @@ public class ControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		response.setContentType("text/html");
-        PrintWriter printWriter  = response.getWriter();
-        printWriter.println("<h1>User addition to DB!</h1>");
-        User u = new User();
-        String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
-        String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
-     
-        //db user and password
-        final String USER = "mynewuser";
-        final String PASS = "passw0rd";
-        Connection conn = null;
-        try{
-            // registre JDBC 
-            Class.forName("com.mysql.jdbc.Driver");
-        
-            System.out.println("connect db");
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            u.setemail("blabla");
-            u.setName("User bla bla");
-            u.setPhone_num("phone");
-            Inserter.insertUser(u, conn);
-            Vehicle v = new Vehicle();
-            v.setAxis_num(4);
-            v.setMake("MAKE");
-            v.setModel("MODEL");
-            v.setTire_num(3);
-            v.setUser_id(5);
-            v.setYear(2016);
-            v.setVin(71223);
-            Inserter.insertVehicle(v, conn);
+		try{
             
-            //insert
-            //String sql = String.format("INSERT INTO USER(NAME,EMAIL,PHONE_NUMBER) //VALUES('%s','%s','%s')","test","test@126.com","123456");
-//            insert(conn,sql);
+            System.out.println("Connected to database!");
 
-        }catch(SQLException se){
-            se.printStackTrace();
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -84,6 +47,16 @@ public class ControllerServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+	}
+	
+	public void init() throws ServletException {
+        try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Database including libraries");
+			e.printStackTrace();
+		}
 	}
 
 }
