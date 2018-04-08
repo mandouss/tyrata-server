@@ -66,17 +66,15 @@ public abstract class Printer {
 		return null;
 	}
 	
-	public static boolean authenticate(String email, String hash, String salt) {
+	public static boolean authenticate(String email, String hash) {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		String query= "SELECT SALT FROM USER"
-	            + " WHERE EMAIL=? AND HASH=? AND SALT=?;";
-		
+	            + " WHERE EMAIL=? AND HASH=?;";		
 		try {
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, email);
 			psmt.setString(2, hash);
-			psmt.setString(3, salt);
 			psmt.addBatch();
 			ResultSet rs = psmt.executeQuery();
 			boolean is_authenticated = rs.next();
