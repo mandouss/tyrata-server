@@ -29,7 +29,6 @@ public class Snapshot {
 	public void setId(int id) {
 		this.id = id;
 	}
-
 	public double getS11() {
 		return s11;
 	}
