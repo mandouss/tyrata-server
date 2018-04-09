@@ -1,14 +1,18 @@
 package models;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 /*
  * XML implementation class XML Vehicle
  * Author: Yiwei
  * */
+
+
 @XmlRootElement
 public class Vehicle {
 	String vin;
-	int id;
 	String make;
 	String model;
 	int year;
@@ -16,13 +20,7 @@ public class Vehicle {
 	int axis_num;
 	int user_id;
 	
-	public int getId() {
-		return id;
-	}
-	@XmlElement
-	public void setId(int id) {
-		this.id = id;
-	}
+
 	
 	public String getModel() {
 		return model;
