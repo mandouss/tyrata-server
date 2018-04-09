@@ -1,13 +1,14 @@
 package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  * XML implementation class XML Tire
  * Author: Yiwei
  * */
+
 @XmlRootElement
 public class Tire {
-	int id;
 	String sensor_id;
 	String manufacturer;
 	String model;
@@ -20,13 +21,7 @@ public class Tire {
 	double init_thickness;
 	int cur_ss_id;
 	
-	public int getId() {
-		return id;
-	}
-	@XmlElement
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 	
 	public String getSensor_id() {
 		return sensor_id;

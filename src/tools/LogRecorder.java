@@ -1,5 +1,6 @@
 package tools;
 import java.io.*;
+import models.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,7 +28,9 @@ public class LogRecorder {
 		    out = new PrintWriter(fileName);
 		}
 		
-		out.append(reportDate + "----"+logs);
+		out.append(reportDate + "----"+logs + "\n");
+		
+		//out.append(Result.dbToXml(m)+"\n");
 		out.close();
 	}
 

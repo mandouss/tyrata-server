@@ -2,6 +2,7 @@ package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
 @XmlRootElement
 public class Authentication{
     String email;
@@ -20,19 +21,19 @@ public class Authentication{
 
     @XmlElement
     public void setEmail(String email){
-	this.email = email;
+    	this.email = email;
     }
     @XmlElement
     public void setSalt(String salt){
-	this.salt = salt;
+    	this.salt = salt;
     }
     @XmlElement
     public void setHash(String hash){
-	this.hash = hash;
+    	this.hash = hash;
     }
 
     public boolean haveHash(){
-	if(hash != NULL){
+	if(hash != null){
 	    return true;
 	}
 	return false;

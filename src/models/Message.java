@@ -1,28 +1,55 @@
 package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  * XML implementation class XML Message
  * Author: Yiwei
  * */
-
 @XmlRootElement
 public class Message {
+	int id;
     String method;
     User user;
     Vehicle vehicle;
     Tire tire;
     Snapshot snapshot;
     Authentication authentication;
-    int id;
     
-    public Authentication getAuthentication(){
-	return authentication;
+    public int getId() {
+    	return id;
     }
-
     @XmlElement
-    public void setAuthentication(){
-	this.authentication = authentication;
+    public void setId(int id) {
+    	this.id = id;
+    }
+    
+    public String getMethod() {
+    	return method;
+    }
+        
+    @XmlElement
+    public void setMethod(String method) {
+    	this.method = method;
+    }
+    
+    public User getUser() {
+	return user;
+    }
+     
+    @XmlElement
+    public void setUser(User user) {
+	this.user = user;
+    }
+    
+    public Vehicle getVehicle() {
+    	return vehicle;
+    }
+       
+        
+    @XmlElement
+    public void setVehicle(Vehicle vehicle) {
+    	this.vehicle = vehicle;
     }
     
     public Tire getTire() {
@@ -33,13 +60,7 @@ public class Message {
 	this.tire = tire;
     }
     
-    public int getId() {
-    	return id;
-    }
-    @XmlElement
-    public void setId(int id) {
-    	this.id = id;
-    }
+    
     public Snapshot getSnapshot() {
 	return snapshot;
     }
@@ -47,52 +68,38 @@ public class Message {
     public void setSnapshot(Snapshot snapshot) {
 	this.snapshot = snapshot;
     }
-    public String getMethod() {
-	return method;
-    }
     
-    @XmlElement
-    public void setMethod(String method) {
-	this.method = method;
-    }
     
-    public User getUser() {
-	return user;
-    }
+
     
-    public Vehicle getVehicle() {
-	return vehicle;
-    }
-    
-    @XmlElement
-    public void setUser(User user) {
-	this.user = user;
-    }
-    
-    @XmlElement
-    public void setVehicle(Vehicle vehicle) {
-	this.vehicle = vehicle;
+    public Authentication getAuthentication(){
+    	return authentication;
     }
 
-    public static String getType(){
-	if(user != NULL && vehicle == NULL && tire == NULL && snapshot == NULL  && authentication == NULL){
+    @XmlElement
+    public void setAuthentication(Authentication authentication){
+    	this.authentication = authentication;
+    }
+
+    public String getType( ){
+	if(user != null && vehicle == null && tire == null && snapshot == null  && authentication == null){
 	    return "User";
 	}
-	if(user == NULL && vehicle != NULL && tire == NULL && snapshot == NULL  && authentication == NULL){
+	if(user == null && vehicle != null && tire == null && snapshot == null  && authentication == null){
 	    return "Vehicle";
 	}
-	if(user == NULL && vehicle == NULL && tire != NULL && snapshot == NULL  && authentication == NULL){
+	if(user == null && vehicle == null && tire != null && snapshot == null  && authentication == null){
 	    return "Tire";
 	}
-	if(user == NULL && vehicle == NULL && tire == NULL && snapshot != NULL  && authentication == NULL){
+	if(user == null && vehicle == null && tire == null && snapshot != null  && authentication == null){
 	    return "Snapshot";
 	}
-	if(user == NULL && vehicle == NULL && tire == NULL && snapshot = NULL  && authentication != NULL){
+	if(user == null && vehicle == null && tire == null && snapshot == null  && authentication != null){
 	    return "Authentication";
 	}
 	return null;
-
     }
-	
+    
+ 
 }
 

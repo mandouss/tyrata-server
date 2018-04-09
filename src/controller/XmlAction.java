@@ -28,27 +28,27 @@ public class XmlAction extends HttpServlet {  // JDK 1.6 and above only
 	   throws ServletException, IOException {
 	   response.setContentType("text/html");
 	   PrintWriter out = response.getWriter();
+	   
 	   String JDBC_DRIVER = "com.mysql.jdbc.Driver";  
        String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
        final String USER = "mynewuser";
        final String PASS = "passw0rd";
        
        String xml_data = request.getParameter("xml_data");
-       //LogRecorder.recordLog(xml_data, "/home/vcm/Tyrata.log");  // PERMISSION DENIED
+       LogRecorder.recordLog(xml_data, "/home/vcm/Tyrata.log");  // PERMISSION DENIED
        Message msg = new Message();
        msg = XmlParser.doParse(xml_data);
-       User u = new User();
-       u = msg.getUser();
+ 
        Connection conn = null;
        try{
            // register JDBC 
            Class.forName(JDBC_DRIVER);
            System.out.println("connect db");
-           conn = DriverManager.getConnection(DB_URL,USER,PASS);
-           Inserter.insertUser(u);
-           out.println( "<h1>User addition "+ u.getEmail() + " </h1>" );
-           //LogRecorder.recordLog("insert to database successfully", "/home/vcm/Tyrata.log");// PERMISSION DENIED
+           conn = DriverManager.getConnection(DB_URL,USER,PASS);        
+           out.println(Result.dbToXml(msg));
+           LogRecorder.recordLog("insert to database successfully", "/home/vcm/Tyrata.log");// PERMISSION DENIED
        }catch(SQLException se){
+    	   LogRecorder.recordLog("all fail", "/home/vcm/Tyrata.log");
            se.printStackTrace();
        }catch(Exception e){
            e.printStackTrace();

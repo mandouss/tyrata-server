@@ -1,6 +1,7 @@
 package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+
 /*
  * XML implementation class XML Snapshot
  * Author: Yiwei
@@ -8,7 +9,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Snapshot {
-	int id;
 	double s11;
 	String timestamp;
 	double mileage;
@@ -22,13 +22,6 @@ public class Snapshot {
 	double latitude;
 	
 
-	public int getId() {
-		return id;
-	}
-	@XmlElement
-	public void setId(int id) {
-		this.id = id;
-	}
 	public double getS11() {
 		return s11;
 	}

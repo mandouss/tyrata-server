@@ -1,4 +1,5 @@
 package tools;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import models.*;
 /***
@@ -137,7 +138,7 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertUser(User u) {
+	public static boolean insertUser(User u) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
@@ -156,6 +157,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
+			LogRecorder.recordLog("inserter user fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
