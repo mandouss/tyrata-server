@@ -53,7 +53,7 @@ public abstract class Printer {
 	    List<Snapshot> list = new List<Snapshot>();
 	    try{
 		String sql;
-		sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.USER_ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
+		sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 		
@@ -92,7 +92,7 @@ public abstract class Printer {
 	    List<Tire> list = new List<Tire>();
 	    try{
 		String sql;
-		sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.USER_ID and VEHICLE.ID=TIRE.VEHICLE_ID";
+		sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 
@@ -132,7 +132,7 @@ public abstract class Printer {
 	    List<Vehicle> list = new List<Vehicle>();
 	    try{
 		String sql;
-		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.USER_ID=VEHICLE.USER_ID";
+		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 
