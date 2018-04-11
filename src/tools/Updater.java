@@ -88,7 +88,7 @@ public class Updater {
 		}
 		return true;
 	}
-	public static boolean insertUser(User u) {
+	public static boolean updateUser(User u) {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
