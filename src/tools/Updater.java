@@ -18,8 +18,8 @@ public class Updater {
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE TIRE "
-					+" SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_SS_ID=?, CUR_SS_ID=?, INIT_THICKNESS=? "
-					+" WHERE ID=? ;";
+					+"SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_SS_ID=?, CUR_SS_ID=?, INIT_THICKNESS=? "
+					+"WHERE ID=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, t.getSensor_id());
 			psmt.setString(2, t.getManufacturer());
@@ -58,8 +58,8 @@ public class Updater {
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE VEHICLE "
-		            + " SET VIN=?, MAKE=?, MODEL=?, YEAR=?, AXIS_NUM=?, TIRE_NUM=?, USER_ID=? "
-		            + " WHERE ID=? ;";
+		            + "SET VIN=?, MAKE=?, MODEL=?, YEAR=?, AXIS_NUM=?, TIRE_NUM=?, USER_ID=? "
+		            + "WHERE ID=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, v.getVin());
 			psmt.setString(2, v.getMake());
@@ -93,8 +93,8 @@ public class Updater {
 		connectDatabase();
 		try {
 			conn.setAutoCommit(false);
-			String query= "UPDATE USER SET "
-		            + "NAME=?, EMAIL=?, PHONE_NUMBER=?, SALT=?, HASH=? "
+			String query= "UPDATE USER "
+		            + "SET NAME=?, EMAIL=?, PHONE_NUMBER=?, SALT=?, HASH=? "
 		            + "WHERE ID=?;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, u.getName());
