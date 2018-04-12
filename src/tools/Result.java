@@ -39,7 +39,7 @@ public abstract class Result{
 		//throw exception
 	}
 	
-	LogRecorder.recordLog("uer or auth failed", "/home/vcm/Tyrata.log");
+	LogRecorder.recordLog("dbToXml failed", "/home/vcm/Tyrata.log");
 	return null;	
     }
 

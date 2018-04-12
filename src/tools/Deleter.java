@@ -29,8 +29,7 @@ public class Deleter {
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM TIRE WHERE SENSOR_ID=?";
 		psmt = conn.prepareStatement(query);
-		psmt.setString(1,t.getSensorid());
-		psmt.addBatch();
+		psmt.setString(1, t.getSensorid());
 		psmt.executeBatch();
 		conn.commit();
 		conn.close();
@@ -56,9 +55,9 @@ public class Deleter {
 	    try{
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM VEHICLE WHERE VIN=?";
+
 		psmt = conn.prepareStatement(query);
 		psmt.setString(1,v.getVin());
-		psmt.addBatch();
 		psmt.executeBatch();
 		conn.commit();
 		conn.close();

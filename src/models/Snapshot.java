@@ -17,7 +17,7 @@ public class Snapshot {
 	boolean outlier;
 	double thickness;
 	String eol;
-	String time_to_replacement;
+	String replacetime;
 	double longtitude;
 	double latitude;
 	
@@ -86,12 +86,12 @@ public class Snapshot {
 		this.eol = eol;
 	}
 	
-	public String getTime_to_replacement() {
-		return time_to_replacement;
+	public String getReplacetime() {
+		return replacetime;
 	}
 	@XmlElement
-	public void setTime_to_replacement(String time_to_replacement) {
-		this.time_to_replacement = time_to_replacement;
+	public void setReplacetime(String replacetime) {
+		this.replacetime = replacetime;
 	}
 	
 	public double getLongtitude() {

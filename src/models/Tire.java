@@ -23,8 +23,8 @@ public class Tire {
 		return sensorid;
 	}
 	@XmlElement
-	public void setSensorid(String sensor_id) {
-		this.sensorid = sensor_id;
+	public void setSensorid(String sensorid) {
+		this.sensorid = sensorid;
 	}
 	
 	public String getManufacturer() {
@@ -63,32 +63,32 @@ public class Tire {
 		return axisrow;
 	}
 	@XmlElement
-	public void setAxisrow(int axis_row) {
-		this.axisrow = axis_row;
+	public void setAxisrow(int axisrow) {
+		this.axisrow = axisrow;
 	}
 
 	public String getAxisside() {
 		return axisside;
 	}
 	@XmlElement
-	public void setAxisside(String axis_side) {
-		this.axisside = axis_side;
+	public void setAxisside(String axisside) {
+		this.axisside = axisside;
 	}
 	
 	public int getAxisindex() {
 		return axisindex;
 	}
 	@XmlElement
-	public void setAxisindex(int axis_index) {
-		this.axisindex = axis_index;
+	public void setAxisindex(int axisindex) {
+		this.axisindex = axisindex;
 	}
 
 	public double getInitthickness() {
 		return initthickness;
 	}
 	@XmlElement
-	public void setInitthickness(double init_thickness) {
-		this.initthickness = init_thickness;
+	public void setInitthickness(double initthickness) {
+		this.initthickness = initthickness;
 	}
 	
 }

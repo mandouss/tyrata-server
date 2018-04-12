@@ -120,7 +120,7 @@ public class Message {
 	    return "Authentication";
 	}
 	if(user == null && vehicle == null && tire == null && snapshot == null  && authentication == null && accident != null){
-	    return "accident";
+	    return "Accident";
 	}
 	return null;
     }

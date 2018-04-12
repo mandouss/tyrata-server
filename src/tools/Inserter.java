@@ -6,7 +6,6 @@ import models.*;
  * 
  * 
  * @author aicmez class Inserter
- * @author Zizhao Fang insertAccident
  *
  */
 
@@ -41,7 +40,7 @@ public abstract class Inserter {
 			psmt.setBoolean(5,  ss.isOutlier());
 			psmt.setDouble(6, ss.getThickness());
 			psmt.setString(7, ss.getEol());
-			psmt.setString(8, ss.getTime_to_replacement());
+			psmt.setString(8, ss.getReplacetime()); // TODO
 			psmt.setDouble(9, ss.getLongtitude());
 			psmt.setDouble(10, ss.getLatitude());
 			psmt.setInt(11, ss.getTire_id());
@@ -77,9 +76,9 @@ public abstract class Inserter {
 		            + "VEHICLE_ID, INIT_THICKNESS) VALUES ("
 		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			psmt = conn.prepareStatement(query);
-			//psmt.setInt(1, t.getInit_ss_id());
+			psmt.setInt(1, 0); // TODO: rewrite init_ss_id
 			psmt.setString(2, t.getSensorid());
-			//psmt.setInt(3, t.getCur_ss_id());
+			psmt.setInt(3, 0); // TODO: rewrite cur_ss_id
 			psmt.setString(4, t.getManufacturer());
 			psmt.setString(5, t.getModel());
 			psmt.setString(6, t.getSku());

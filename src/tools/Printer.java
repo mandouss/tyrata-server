@@ -13,7 +13,6 @@ import models.*;
 /**
  * Servlet implementation class Printer
  * Author : Arda & Da Xue & Zizhao Fang
- * Bug fixer: Zizhao Fang
  */
 
 public abstract class Printer {
@@ -77,7 +76,7 @@ public abstract class Printer {
 		    snaphot.setOutlier(rs.getBoolean("OUTLIER"));
 		    snaphot.setThickness(rs.getDouble("THICKNESS"));
 		    snaphot.setEol(rs.getString("EOL"));
-		    snaphot.setTime_to_replacement(rs.getString("TIME_TO_REPLACEMENT"));
+		    snaphot.setReplacetime(rs.getString("TIME_TO_REPLACEMENT"));
 		    snaphot.setLatitude(rs.getDouble("LATITUDE"));
 		    snaphot.setLongtitude(rs.getDouble("LONGITUDE"));
 		    list.add(snaphot);
