@@ -17,9 +17,19 @@ public class Tire {
 	int axisindex;
 	String axisside;
 	int axisrow;
+<<<<<<< HEAD
 	double initthickness;
 
 	public String getSensorid() {
+=======
+    //	int init_ss_id;
+	double initthickness;
+    //	int cur_ss_id;
+	
+	
+	
+	public String getSensor_id() {
+>>>>>>> 3111ad04ddd03ef2cbf7f96e3c6b75c5c077ac4a
 		return sensorid;
 	}
 	@XmlElement
@@ -53,6 +63,7 @@ public class Tire {
 	
 	public String getVin() {
 		return vin;
+<<<<<<< HEAD
 	}
 	@XmlElement
 	public void setVin(String v) {
@@ -69,6 +80,41 @@ public class Tire {
 
 	public String getAxisside() {
 		return axisside;
+=======
+	}
+	@XmlElement
+	public void setVin(String vin) {
+		this.vin = vin;
+	}
+	
+	public int getAxis_row() {
+		return axisrow;
+	}
+    
+	@XmlElement
+	public void setAxisrow(int axisrow) {
+		this.axisrow = axisrow;
+	}
+
+	public String getAxis_side() {
+		return axisside;
+	}
+	@XmlElement
+	public void setAxisside(String axisside) {
+		this.axisside = axisside;
+	}
+	
+	public int getAxis_index() {
+		return axisindex;
+	}
+	@XmlElement
+	public void setAxisindex(int axisindex) {
+		this.axisindex = axisindex;
+	}
+    /*
+	public int getInit_ss_id() {
+		return init_ss_id;
+>>>>>>> 3111ad04ddd03ef2cbf7f96e3c6b75c5c077ac4a
 	}
 	@XmlElement
 	public void setAxisside(String axisside) {
@@ -82,8 +128,13 @@ public class Tire {
 	public void setAxisindex(int axisindex) {
 		this.axisindex = axisindex;
 	}
+<<<<<<< HEAD
 
 	public double getInitthickness() {
+=======
+    */
+	public double getInit_thickness() {
+>>>>>>> 3111ad04ddd03ef2cbf7f96e3c6b75c5c077ac4a
 		return initthickness;
 	}
 	@XmlElement
