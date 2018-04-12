@@ -16,7 +16,6 @@ public class Message {
     Snapshot snapshot;
     Authentication authentication;
     Accident accident;
-    int id;
     String original_info;
  
 
@@ -33,26 +32,11 @@ public class Message {
     }
 
     @XmlElement
-    public void setOrigial_info(Sting original_info){
+    public void setOrigial_info(String original_info){
 	this.original_info = original_info;
     }
     
-    public Authentication getAuthentication(){
-	return authentication;
-    }
-
-    @XmlElement
-    public void setAuthentication(Authentication authentication){
-	this.authentication = authentication;
-    }
     
-    public Tire getTire() {
-	return tire;
-    }
-    @XmlElement
-    public void setTire(Tire tire) {
-	this.tire = tire;
-    }
     
     public int getId() {
     	return id;
@@ -119,23 +103,23 @@ public class Message {
     	this.authentication = authentication;
     }
 
-    public static String getType(){
-	if(user != NULL && vehicle == NULL && tire == NULL && snapshot == NULL  && authentication == NULL && accident == NULL){
+    public String getType(){
+	if( user != null && vehicle == null && tire == null && snapshot == null  && authentication == null && accident == null){
 	    return "User";
 	}
-	if(user == NULL && vehicle != NULL && tire == NULL && snapshot == NULL  && authentication == NULL && accident == NULL){
+	if(user == null && vehicle != null && tire == null && snapshot == null  && authentication == null && accident == null){
 	    return "Vehicle";
 	}
-	if(user == NULL && vehicle == NULL && tire != NULL && snapshot == NULL  && authentication == NULL && accident == NULL){
+	if(user == null && vehicle == null && tire != null && snapshot == null  && authentication == null && accident == null){
 	    return "Tire";
 	}
-	if(user == NULL && vehicle == NULL && tire == NULL && snapshot != NULL  && authentication == NULL && accident == NULL){
+	if(user == null && vehicle == null && tire == null && snapshot != null  && authentication == null && accident == null){
 	    return "Snapshot";
 	}
-	if(user == NULL && vehicle == NULL && tire == NULL && snapshot == NULL  && authentication != NULL && accident == NULL){
+	if(user == null && vehicle == null && tire == null && snapshot == null  && authentication != null && accident == null){
 	    return "Authentication";
 	}
-	if(user == NULL && vehicle == NULL && tire == NULL && snapshot == NULL  && authentication == NULL && accident != NULL){
+	if(user == null && vehicle == null && tire == null && snapshot == null  && authentication == null && accident != null){
 	    return "accident";
 	}
 	return null;
