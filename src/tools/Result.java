@@ -143,14 +143,14 @@ public abstract class Result{
 	    if(Updater.updateTire(m)){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
-		type = "<error>connot update this tire</error>";
+		type = "<error>cannot update this tire</error>";
 	    }
 	}
 	else if(m.getMethod().equals("delete")){
 	    if(Deleter.deleteTire(m.getTire())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
-		type = "<error>connot delete this tire</error>";
+		type = "<error>cannot delete this tire</error>";
 	    }
 	}
 	ans = "<message>" + type + "</message>";
@@ -177,21 +177,21 @@ public abstract class Result{
 	    if(Inserter.insertVehicle(m.getVehicle())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
-		type = "<error>connot create this vehicle</error>";
+		type = "<error>cannot create this vehicle</error>";
 	    }
 	}
 	else if(m.getMethod().equals("update")){
 	    if(Updater.updateVehicle(m)){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
-		type = "<error>connot update this vehicle</error>";
+		type = "<error>cannot update this vehicle</error>";
 	    }
 	}
 	else if(m.getMethod().equals("delete")){
 	    if(Deleter.deleteVehicle(m.getVehicle())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
-		type = "<error>connot delete this vehicle</error>";
+		type = "<error>cannot delete this vehicle</error>";
 	    }
 	}
 	ans = "<message>" + type + "</message>";

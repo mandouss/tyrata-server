@@ -4,7 +4,6 @@ import models.*;
 /**
  * Servlet implementation class Updater
  * Author : Weiyu Yan & Zizhao Fang
- * Bug fixer: Zizhao Fang
  */
 public class Updater {
 	private static Connection conn = null;
