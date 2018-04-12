@@ -6,13 +6,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import models.*;
 
 /**
  * Servlet implementation class Printer
- * Author : Arda & Da Xue
+ * Author : Arda & Da Xue & Zizhao Fang
  * Bug fixer: Zizhao Fang
  */
 
@@ -140,7 +139,6 @@ public abstract class Printer {
 		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
 		psmt = conn.prepareStatement(sql);
 		psmt.setString(1, email);
-
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Vehicle v = new Vehicle();
@@ -185,5 +183,33 @@ public abstract class Printer {
 			e.printStackTrace();
 			return false;
 		}
-	}	
+	}
+
+
+	public static User getUser(String email) {
+				
+		try {
+			PreparedStatement psmt = null;
+			connectDatabase();
+			String query= "SELECT * FROM USER"
+		            + " WHERE EMAIL=?;";
+			User u = new User();
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, email);
+			psmt.addBatch();
+			ResultSet rs = psmt.executeQuery();
+			u.setName(rs.getString("NAME"));
+			u.setEmail(rs.getString("EMAIL"));
+			u.setHash("HASH ");
+			u.setPhone_num(rs.getString("PHONE_NUMBER"));
+			u.setSalt(rs.getString("SALT"));
+			conn.close();
+			return u;
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
 }

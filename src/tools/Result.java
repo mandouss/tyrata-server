@@ -1,12 +1,10 @@
 package tools;
-
 import java.io.FileNotFoundException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.List;
-
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.*;
 import models.*;
 
 /**
@@ -14,45 +12,47 @@ import models.*;
  * Author : Yiwei Li & Zizhao Fang
  */
 public abstract class Result{
-    public static String dbToXml(Message m) throws FileNotFoundException{
+    public static String dbToXml(Message m) throws FileNotFoundException, JAXBException{
 	String type = m.getType();
-	if(type.equals("User")){
-	    return userToXml(m);
+	if(type == null  && m.getMethod().equals("get")){
+	    return getAll(m);
 	}
-	if(type.equals("Authentication")){
+	else if(type.equals("User")){
+	    return userToXml(m);
+	} 
+	else if(type.equals("Authentication")){
 	    return AuthToXml(m);
 	}
-	if(type.equals("Vehicle")){
+	else if(type.equals("Vehicle")){
 	    return vehicleToXml(m);
 	}
-	if(type.equals("Tire")){
+	else if(type.equals("Tire")){
 	    return tireToXml(m);
 	}
-	if(type.equals("Snapshot")){
+	else if(type.equals("Snapshot")){
 	    return snapshotToXml(m);
 	}
-	if(type.equals("Accident")){
+	else if(type.equals("Accident")){
 	    return accidentToXml(m);
+	} else {
+		//throw exception
 	}
-	if(type == null && m.getMethod().equals("get")){
-	    return getAll(m);
-	}else{
-	    //throw exception
-	}
+	
 	LogRecorder.recordLog("uer or auth failed", "/home/vcm/Tyrata.log");
 	return null;	
     }
 
-    public static String getAll(Message m){
+    public static String getAll(Message m) throws JAXBException{
 	String ans;
 	String email = m.getUser().getEmail();
 	User user = Printer.getUser(email);
-	ans = "<user><name>" + user.getName() + "</name><email>"
-	    +user.getEmail()+"</email><phone_num>"
-	    +user.getPhone_num()+"</phone_num></user>";
 	if(user == null){
 	    return "<message><error>This user does not exist<error><message>";
 	}
+	ans = "<user><name>" + user.getName() + "</name><email>"
+	    +user.getEmail()+"</email><phone_num>"
+	    +user.getPhone_num()+"</phone_num></user>";
+	
 	List<Vehicle> vehicles = Printer.getVehicles(email);
 	for (int i = 0; i < vehicles.size(); i++) {
 	    ans = ans + getVehicleXML(vehicles.get(i));
@@ -69,7 +69,7 @@ public abstract class Result{
 	return ans;
     }
 
-    public static String getVehicleXML(Vehicle v){
+    public static String getVehicleXML(Vehicle v) throws JAXBException{
 	    JAXBContext context = JAXBContext.newInstance(Vehicle.class);
 	    Marshaller m = context.createMarshaller();
 	    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
@@ -78,7 +78,7 @@ public abstract class Result{
 	    return sw.toString();
     }
 
-     public static String getTireXML(Tire t){
+     public static String getTireXML(Tire t) throws JAXBException{
 	    JAXBContext context = JAXBContext.newInstance(Tire.class);
 	    Marshaller m = context.createMarshaller();
 	    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
@@ -87,7 +87,7 @@ public abstract class Result{
 	    return sw.toString();
     }
 
-     public static String getSnapshotXML(Snapshot s){
+     public static String getSnapshotXML(Snapshot s) throws JAXBException{
 	    JAXBContext context = JAXBContext.newInstance(Snapshot.class);
 	    Marshaller m = context.createMarshaller();
 	    m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE); // To format XML
@@ -97,7 +97,7 @@ public abstract class Result{
     }
     
     public static String userToXml(Message m) throws FileNotFoundException {
-    	String ans, type;
+    	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if( Inserter.insertUser(m.getUser()) ) {
     		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
@@ -118,8 +118,8 @@ public abstract class Result{
 
     
     public static String accidentToXml(Message m){
-	String ans, type;
-	if(m.getMethod.equals("create")){
+	String ans, type="";
+	if(m.getMethod().equals("create")){
 	    if(Inserter.insertAccident(m.getAccident())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
@@ -131,22 +131,22 @@ public abstract class Result{
     }
     
     public static String tireToXml(Message m){
-	String ans, type;
-	if(m.getMethod.equals("create")){
+	String ans, type="";
+	if(m.getMethod().equals("create")){
 	    if(Inserter.insertTire(m.getTire())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
 		type = "<error>connot create this tire</error>";
 	    }
 	}
-	else if(m.getMethod.equals("update")){
+	else if(m.getMethod().equals("update")){
 	    if(Updater.updateTire(m)){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
 		type = "<error>connot update this tire</error>";
 	    }
 	}
-	else if(m.getMethod.equals("delete")){
+	else if(m.getMethod().equals("delete")){
 	    if(Deleter.deleteTire(m.getTire())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
@@ -158,7 +158,7 @@ public abstract class Result{
     }	    
     
     public static String snapshotToXml(Message m){
-	String ans, type;
+	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if(Inserter.insertSnapshot(m.getSnapshot())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
@@ -172,22 +172,22 @@ public abstract class Result{
 
     
     public static String vehicleToXml(Message m){
-	String ans, type;
-	if(m.getMethod.equals("create")){
+	String ans, type="";
+	if(m.getMethod().equals("create")){
 	    if(Inserter.insertVehicle(m.getVehicle())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
 		type = "<error>connot create this vehicle</error>";
 	    }
 	}
-	else if(m.getMethod.equals("update")){
+	else if(m.getMethod().equals("update")){
 	    if(Updater.updateVehicle(m)){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
 		type = "<error>connot update this vehicle</error>";
 	    }
 	}
-	else if(m.getMethod.equals("delete")){
+	else if(m.getMethod().equals("delete")){
 	    if(Deleter.deleteVehicle(m.getVehicle())){
 		type = "<ack>" + Integer.toString(m.getId()) + "</ack>";
 	    }else{
