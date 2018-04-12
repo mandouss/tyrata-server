@@ -11,8 +11,7 @@ import models.*;
 
 /**
  * Servlet implementation class Printer
- * Author : Arda & Da Xue & Zizhao Fang
- * Bug fixer: Zizhao Fang
+ * Author : @aicmez & Da Xue & Zizhao Fang
  */
 
 public abstract class Printer {

@@ -6,7 +6,6 @@ import models.*;
  * 
  * 
  * @author aicmez class Inserter
- * @author Zizhao Fang insertAccident
  *
  */
 

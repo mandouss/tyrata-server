@@ -1,4 +1,5 @@
 package tools;
+import java.sql.*;
 import models.*;
 
 /**
@@ -25,7 +26,7 @@ public class Deleter {
 	    try{
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM TIRE WHERE SENSOR_ID=?";
-		psmt.connprepareStatement(sql);
+		psmt = conn.prepareStatement(query);
 		psmt.setString(1,t.getSensor_id());
 		psmt.addBatch();
 		psmt.executeBatch();
@@ -52,7 +53,7 @@ public class Deleter {
 	    try{
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM VEHICLE WHERE VIN=?";
-		psmt.connprepareStatement(sql);
+		psmt = conn.prepareStatement(query);
 		psmt.setString(1,v.getVin());
 		psmt.addBatch();
 		psmt.executeBatch();
