@@ -6,7 +6,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import models.Tire;
+import tools.Deleter;
+import tools.Inserter;
 import tools.Printer;
+
 /**
  * Servlet implementation class ControllerServlet
  * @author aicmez
@@ -30,6 +35,18 @@ public class ControllerServlet extends HttpServlet {
 		
 		try{
             out.println("Connected to database!");
+            Tire t = new Tire();
+            t.setAxisindex(5);
+            t.setAxisrow(5);
+            t.setAxisside("side booo");
+            t.setInitthickness(1.2);
+            t.setManufacturer("ARDA");
+            t.setModel("BARDA");
+            t.setSku("Now");
+            t.setVin("HAHEHAHEH");
+            t.setSensorid("123arbc");
+            //Inserter.insertTire(t);
+            //Deleter.deleteTire(t);
         }catch(Exception e){
             e.printStackTrace();
         }

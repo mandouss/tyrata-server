@@ -49,7 +49,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("insertSnapshot fail::::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertSnapshot fail::::"+ e.getMessage(), "~/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -57,7 +57,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
-				LogRecorder.recordLog("inserter user fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+				LogRecorder.recordLog("inserter user fail:::"+ e.getMessage(), "~/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -92,7 +92,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "~/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -100,7 +100,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
-				LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+				LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "~/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -129,7 +129,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "~/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -137,7 +137,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
-				LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+				LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "~/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -164,7 +164,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "~/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -172,7 +172,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
-				LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+				LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "~/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 		    }
@@ -197,7 +197,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "~/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {

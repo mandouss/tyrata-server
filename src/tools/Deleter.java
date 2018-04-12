@@ -1,5 +1,4 @@
 package tools;
-import src/tools/Deleter.java;
 import java.io.FileNotFoundException;
 import java.sql.*;
 import models.*;
@@ -9,9 +8,9 @@ import models.*;
  * author : @Zizhao @Yiwei
  */
 
-public class Deleter {
+public abstract class Deleter {
     private static Connection conn = null;
-    private static void connectDatabase () throws FileNotFoundException {
+    private static void connectDatabase () {
 	    final String USER = "mynewuser";
 	    final String PASS = "passw0rd";
 	    String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
@@ -23,7 +22,7 @@ public class Deleter {
 	    }
     }
     
-	static boolean deleteTire(Tire t) throws FileNotFoundException {
+	public static boolean deleteTire(Tire t){
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    try{
@@ -51,7 +50,7 @@ public class Deleter {
 		return true;
 	}
 
-	static boolean deleteVehicle(Vehicle v ) throws FileNotFoundException {
+	public static boolean deleteVehicle(Vehicle v ) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    try{
