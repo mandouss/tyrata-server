@@ -1,4 +1,5 @@
 package tools;
+import java.sql.*;
 
 public class Updater {
 	private static Connection conn = null;
