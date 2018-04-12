@@ -1,5 +1,11 @@
 package tools;
-
+import java.sql.*;
+import models.*;
+/**
+ * Servlet implementation class Updater
+ * Author : Weiyu Yan & Zizhao Fang
+ * Bug fixer: Zizhao Fang
+ */
 public class Updater {
 	private static Connection conn = null;
 	private static void connectDatabase () {
@@ -12,14 +18,15 @@ public class Updater {
 			e.printStackTrace();
 		}
 	}
-	public static boolean updateTire(Tire t) {
+	public static boolean updateTire(Message m) {
+		Tire t = m.getTire();
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE TIRE "
 					+"SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_SS_ID=?, CUR_SS_ID=?, INIT_THICKNESS=? "
-					+"WHERE ID=? ;";
+					+"WHERE SENSOR_ID=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, t.getSensor_id());
 			psmt.setString(2, t.getManufacturer());
@@ -32,7 +39,7 @@ public class Updater {
 			psmt.setInt(9, t.getInit_ss_id());
 			psmt.setInt(10, t.getCur_ss_id());
 			psmt.setDouble(11, t.getInit_thickness());
-			psmt.setInt(12, t.getId());
+			psmt.setString(12, m.getOrigial_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
@@ -52,14 +59,15 @@ public class Updater {
 		}
 		return true;
 	}
-	public static boolean updateVehicle(Vehicle v) {
+	public static boolean updateVehicle(Message m) {
+		Vehicle v = m.getVehicle();
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE VEHICLE "
 		            + "SET VIN=?, MAKE=?, MODEL=?, YEAR=?, AXIS_NUM=?, TIRE_NUM=?, USER_ID=? "
-		            + "WHERE ID=? ;";
+		            + "WHERE VIN=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, v.getVin());
 			psmt.setString(2, v.getMake());
@@ -68,7 +76,7 @@ public class Updater {
 			psmt.setInt(5, v.getAxis_num());
 			psmt.setInt(6, v.getTire_num());
 			psmt.setInt(7, v.getUser_id());
-			psmt.setInt(8, v.getId());
+			psmt.setString(8, m.getOrigial_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
@@ -88,21 +96,22 @@ public class Updater {
 		}
 		return true;
 	}
-	public static boolean updateUser(User u) {
+	public static boolean updateUser(Message m) {
+		User u = m.getUser();
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE USER "
 		            + "SET NAME=?, EMAIL=?, PHONE_NUMBER=?, SALT=?, HASH=? "
-		            + "WHERE ID=?;";
+		            + "WHERE EMAIL=?;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, u.getName());
 			psmt.setString(2, u.getEmail());
 			psmt.setString(3, u.getPhone_num());
 			psmt.setString(4, u.getSalt());
 			psmt.setString(5, u.getHash());
-			psmt.setInt(6, u.getId());
+			psmt.setString(6, m.getOrigial_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();

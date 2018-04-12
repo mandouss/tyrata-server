@@ -5,7 +5,8 @@ import models.*;
 /***
  * 
  * 
- * @author aicmez
+ * @author aicmez class Inserter
+ * @author Zizhao Fang insertAccident
  *
  */
 
@@ -171,5 +172,36 @@ public abstract class Inserter {
 		    return false;
 	    }
 	    return true;
+	}
+	
+	public static boolean insertAccident(Accident a) {
+		PreparedStatement psmt = null;
+		connectDatabase();
+		try {
+			conn.setAutoCommit(false);
+			String query= "INSERT INTO ACCIDENT("
+		            + "EMAIL, DESCRIPTION)"
+		            + "VALUES (?, ?);";
+			psmt = conn.prepareStatement(query);
+			psmt.setString(1, a.getEmail());
+			psmt.setString(2, a.getDescription());
+			psmt.addBatch();
+			psmt.executeBatch();
+			conn.commit();
+			conn.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			try {
+				conn.rollback();
+				psmt.close();
+				conn.close();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			return false;
+		}
+		return true;
 	}
 }
