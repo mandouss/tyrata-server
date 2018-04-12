@@ -32,12 +32,13 @@ public class ControllerServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html");
+		PrintWriter out = response.getWriter();
+		
 		try{
-            
-            System.out.println("Connected to database!");
-            
-            System.out.println(Printer.getSalt("arda@gmail.com"));
-            System.out.println(Printer.authenticate("arda@gmail.com", "12345", "Arda's salt"));
+            out.println("Connected to database!");
+            out.println(Printer.getSalt("arda@gmail.com"));
+            out.println(Printer.authenticate("arda@gmail.com", "Arda's hash"));
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -1,4 +1,5 @@
 package tools;
+import java.io.FileNotFoundException;
 import java.io.StringReader;
 
 import javax.xml.bind.JAXBContext;
@@ -12,7 +13,7 @@ import models.Message;
  * Author : Zizhao Fang
  */
 public class XmlParser {
-	public static Message doParse(String recStr) {
+	public static Message doParse(String recStr) throws FileNotFoundException {
 	    JAXBContext jaxbContext;
 			Message msg;
 	    try {
@@ -23,6 +24,8 @@ public class XmlParser {
 		    return msg;
 		} catch (JAXBException e) {
 			// TODO Auto-generated catch block
+			LogRecorder.recordLog("parser fail::::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			
 			e.printStackTrace();
 		}
 		return null;
