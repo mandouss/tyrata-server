@@ -1,5 +1,6 @@
 package tools;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -8,6 +9,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 import models.*;
+
+/**
+ * Servlet implementation class Printer
+ * Author : Arda & Da Xue
+ * Bug fixer: Zizhao Fang
+ */
 
 public abstract class Printer {
 	private static Connection conn = null;
@@ -50,28 +57,27 @@ public abstract class Printer {
 	public static List<Snapshot> getSnapshots(String email) {
 	    connectDatabase();
 	    PreparedStatement pstmt = null;
-	    List<Snapshot> list = new List<Snapshot>();
+	    List<Snapshot> list = new ArrayList<Snapshot>();
 	    try{
 		String sql;
 		sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
 		pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, email);
 		
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = pstmt.executeQuery(sql);
 		while(rs.next()){
 		    Snapshot snaphot = new Snapshot();
-		    snaphot.id  = rs.getInt("ID");
-		    snaphot.s11 = rs.getInt("S11");
-		    snaphot.timestamp = rs.getString("TIMESTAMP");
-		    double mileage = rs.getDouble("MILEAGE");
-		    double pressure = rs.getDouble("PRESSURE");
-		    int tire_id = rs.getInt("TIRE_ID");
-		    boolean outlier = rs.getBoolean("OUTLIER");
-		    double thickness = rs.getDouble("THICKNESS");
-		    snaphot.eol = rs.getString("EOL");
-		    snaphot.time_to_replacement = rs.getString("TIME_TO_REPLACEMENT");
-		    double longtitude = rs.getDouble("LONGITUDE");
-		    double latitude = rs.getDouble("LATITUDE");
+		    snaphot.setTire_id(rs.getInt("ID"));
+		    snaphot.setS11( rs.getInt("S11") );
+		    snaphot.setTimestamp(rs.getString("TIMESTAMP")); 
+		    snaphot.setMileage(rs.getDouble("MILEAGE"));
+		    snaphot.setPressure(rs.getDouble("PRESSURE"));
+		    snaphot.setOutlier(rs.getBoolean("OUTLIER"));
+		    snaphot.setThickness(rs.getDouble("THICKNESS"));
+		    snaphot.setEol(rs.getString("EOL"));
+		    snaphot.setTime_to_replacement(rs.getString("TIME_TO_REPLACEMENT"));
+		    snaphot.setLatitude(rs.getDouble("LATITUDE"));
+		    snaphot.setLongtitude(rs.getDouble("LONGITUDE"));
 		    list.add(snaphot);
 		}
 		rs.close();
@@ -89,32 +95,31 @@ public abstract class Printer {
 	public static List<Tire> getTires(String email) {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
-	    List<Tire> list = new List<Tire>();
+	    List<Tire> list = new ArrayList<Tire>();
 	    try{
 		String sql;
 		sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, email);
 
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Tire tire = new Tire();
-		    tire.id  = rs.getInt("ID");
-		    tire.sensor_id = rs.getString("SENSOR_ID");
-		    tire.manufacturer = rs.getString("MANUFACTURER");
-		    tire.model = rs.getString("MODEL");
-		    tire.sku = rs.getString("SKU");
-		    tire.vehicle_id = rs.getInt("VEHICLE_ID");
-		    tire.axis_index = rs.getInt("AXIS_INDEX");
-		    tire.axis_side = rs.getString("AXIS_SIDE");
-		    tire.axis_row = rs.getInt("AXIS_ROW");
-		    tire.init_ss_id = rs.getInt("INIT_SS_ID");
-		    tire.init_thickness = rs.getDouble("INIT_THICKNESS");
-		    tire.cur_ss_id = rs.getInt("CUR_SS_ID");
+		    tire.setSensor_id(rs.getString("SENSOR_ID"));
+		    tire.setManufacturer(rs.getString("MANUFACTURER"));
+		    tire.setModel(rs.getString("MODEL"));
+		    tire.setSku(rs.getString("SKU"));
+		    tire.setVehicle_id(rs.getInt("VEHICLE_ID")) ;
+		    tire.setAxis_index(rs.getInt("AXIS_INDEX"));
+		    tire.setAxis_side(rs.getString("AXIS_SIDE")); 
+		    tire.setAxis_row(rs.getInt("AXIS_ROW"));
+		    tire.setInit_ss_id(rs.getInt("INIT_SS_ID"));
+		    tire.setInit_thickness(rs.getDouble("INIT_THICKNESS"));
+		    tire.setCur_ss_id(rs.getInt("CUR_SS_ID"));
 		    list.add(tire);
 		}
 		rs.close();
-		pstmt.close();
+		psmt.close();
 		conn.close();
 		return list;
 	    }catch(SQLException se){
@@ -129,28 +134,27 @@ public abstract class Printer {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 
-	    List<Vehicle> list = new List<Vehicle>();
+	    List<Vehicle> list = new ArrayList<Vehicle>();
 	    try{
 		String sql;
 		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
-		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
+		psmt = conn.prepareStatement(sql);
+		psmt.setString(1, email);
 
-		ResultSet rs = stmt.executeQuery(sql);
+		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Vehicle v = new Vehicle();
-		    v.vin = rs.getString("VIN");
-		    v.id = rs.getInt("ID");
-		    v.make = rs.getString("MAKE");
-		    v.model = rs.getString("MODEL");
-		    v.year = rs.getInt("YEAR");
-		    v.tire_num = rs.getInt("TIRE_NUM");
-		    v.axis_num = rs.getInt("AXIS_NUM");
-		    v.user_id = rs.getInt("USER_ID");
+		    v.setVin(rs.getString("VIN"));	    
+		    v.setMake(rs.getString("MAKE"));
+		    v.setModel(rs.getString("MODEL"));
+		    v.setYear(rs.getInt("YEAR"));
+		    v.setTire_num(rs.getInt("TIRE_NUM"));
+		    v.setAxis_num(rs.getInt("AXIS_NUM"));
+		    v.setUser_id(rs.getInt("USER_ID"));
 		    list.add(v);
 		}
 		rs.close();
-		pstmt.close();
+		psmt.close();
 		conn.close();
 		return list;
 	    }catch(SQLException se){
