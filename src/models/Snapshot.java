@@ -9,17 +9,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Snapshot {
-	double s11;
-	String timestamp;
-	double mileage;
-	double pressure;
-	int tire_id;
-	boolean outlier;
-	double thickness;
-	String eol;
-	String time_to_replacement;
-	double longtitude;
-	double latitude;
+    double s11;
+    String timestamp;
+    double mileage;
+    double pressure;
+    String sensorid;
+    //boolean outlier;
+    double thickness;
+    String eol;
+    String replacement;
+    //double longtitude;
+    //double latitude;
 	
 
 	public double getS11() {
@@ -54,14 +54,14 @@ public class Snapshot {
 		this.pressure = pressure;
 	}
 	
-	public int getTire_id() {
-		return tire_id;
+	public String getSensorid() {
+		return sensorid;
 	}
 	@XmlElement
-	public void setTire_id(int tire_id) {
-		this.tire_id = tire_id;
+	public void setSensorid(String sensorid) {
+		this.sensorid = sensorid;
 	}
-	
+    /*
 	public boolean isOutlier() {
 		return outlier;
 	}
@@ -69,7 +69,7 @@ public class Snapshot {
 	public void setOutlier(boolean outlier) {
 		this.outlier = outlier;
 	}
-
+    */
 	public double getThickness() {
 		return thickness;
 	}
@@ -87,13 +87,13 @@ public class Snapshot {
 	}
 	
 	public String getTime_to_replacement() {
-		return time_to_replacement;
+		return replacement;
 	}
 	@XmlElement
-	public void setTime_to_replacement(String time_to_replacement) {
-		this.time_to_replacement = time_to_replacement;
+	public void setReplacement(String Replacement) {
+		this.Replacement = Replacement;
 	}
-	
+    /*
 	public double getLongtitude() {
 		return longtitude;
 	}
@@ -110,9 +110,6 @@ public class Snapshot {
 		this.latitude = latitude;
 	}
 
-	
-
-
-
+    */	
 
 }

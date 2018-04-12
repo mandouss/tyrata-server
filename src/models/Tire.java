@@ -9,26 +9,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Tire {
-	String sensor_id;
+	String sensorid;
 	String manufacturer;
 	String model;
 	String sku;
-	int vehicle_id;
-	int axis_index;
-	String axis_side;
-	int axis_row;
-	int init_ss_id;
-	double init_thickness;
-	int cur_ss_id;
+	String vin;
+	int axisindex;
+	String axisside;
+	int axisrow;
+    //	int init_ss_id;
+	double initthickness;
+    //	int cur_ss_id;
 	
 	
 	
 	public String getSensor_id() {
-		return sensor_id;
+		return sensorid;
 	}
 	@XmlElement
-	public void setSensor_id(String sensor_id) {
-		this.sensor_id = sensor_id;
+	public void setSensorid(String sensorid) {
+		this.sensorid = sensorid;
 	}
 	
 	public String getManufacturer() {
@@ -55,38 +55,39 @@ public class Tire {
 		this.sku = sku;
 	}
 	
-	public int getVehicle_id() {
-		return vehicle_id;
+	public String getVin() {
+		return vin;
 	}
 	@XmlElement
-	public void setVehicle_id(int vehicle_id) {
-		this.vehicle_id = vehicle_id;
+	public void setVin(String vin) {
+		this.vin = vin;
 	}
 	
 	public int getAxis_row() {
-		return axis_row;
+		return axisrow;
 	}
+    
 	@XmlElement
-	public void setAxis_row(int axis_row) {
-		this.axis_row = axis_row;
+	public void setAxisrow(int axisrow) {
+		this.axisrow = axisrow;
 	}
 
 	public String getAxis_side() {
-		return axis_side;
+		return axisside;
 	}
 	@XmlElement
-	public void setAxis_side(String axis_side) {
-		this.axis_side = axis_side;
+	public void setAxisside(String axisside) {
+		this.axisside = axisside;
 	}
 	
 	public int getAxis_index() {
-		return axis_index;
+		return axisindex;
 	}
 	@XmlElement
-	public void setAxis_index(int axis_index) {
-		this.axis_index = axis_index;
+	public void setAxisindex(int axisindex) {
+		this.axisindex = axisindex;
 	}
-
+    /*
 	public int getInit_ss_id() {
 		return init_ss_id;
 	}
@@ -102,13 +103,13 @@ public class Tire {
 	public void setCur_ss_id(int cur_ss_id) {
 		this.cur_ss_id = cur_ss_id;
 	}
-
+    */
 	public double getInit_thickness() {
-		return init_thickness;
+		return initthickness;
 	}
 	@XmlElement
-	public void setInit_thickness(double init_thickness) {
-		this.init_thickness = init_thickness;
+	public void setInitthickness(double initthickness) {
+		this.initthickness = initthickness;
 	}
 	
 }

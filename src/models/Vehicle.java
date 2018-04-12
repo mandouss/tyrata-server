@@ -15,9 +15,9 @@ public class Vehicle {
 	String make;
 	String model;
 	int year;
-	int tire_num;
-	int axis_num;
-	int user_id;
+	int numtires;
+	int numaxis;
+	String email;
 	
 
 	
@@ -31,20 +31,20 @@ public class Vehicle {
 
 	
 	
-	public int getUser_id() {
-		return user_id;
+	public String getEmail() {
+		return email;
 	}
 	@XmlElement
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getTire_num() {
-		return tire_num;
+		return numtires;
 	}
 	@XmlElement
-	public void setTire_num(int tire_num) {
-		this.tire_num = tire_num;
+	public void numtires(int numtires) {
+		this.numtires = numtires;
 	}
 
 	
@@ -64,16 +64,17 @@ public class Vehicle {
 	}
 	
 	public int getAxis_num() {
-		return axis_num;
+		return numaxis;
 	}
 	@XmlElement
-	public void setAxis_num(int axis_num) {
-		this.axis_num = axis_num;
+	public void setNumaxis(int numaxis) {
+		this.numaxis = numaxis;
 	}
 
 	public String getMake() {
 		return make;
 	}
+    
 	@XmlElement
 	public void setMake(String make) {
 		this.make = make;
