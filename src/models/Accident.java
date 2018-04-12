@@ -3,13 +3,13 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
-public class Message {
+public class Accident {
     String description;
     String email;
     public String getDescription(){ 
 	return description;          
     }
-    public Sting getEmail(){
+    public String getEmail(){
 	return email;
     }
 
