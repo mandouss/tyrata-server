@@ -17,7 +17,7 @@ public class Vehicle {
 	int year;
 	int tire_num;
 	int axis_num;
-	int user_id;
+	String email;
 	
 
 	
@@ -31,12 +31,12 @@ public class Vehicle {
 
 	
 	
-	public int getUser_id() {
-		return user_id;
+	public String getEmail() {
+		return email;
 	}
 	@XmlElement
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setEmail(String em) {
+		this.email = em;
 	}
 
 	public int getTire_num() {

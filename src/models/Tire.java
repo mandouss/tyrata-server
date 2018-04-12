@@ -9,26 +9,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Tire {
-	String sensor_id;
+	String sensorid;
 	String manufacturer;
 	String model;
 	String sku;
-	int vehicle_id;
-	int axis_index;
-	String axis_side;
-	int axis_row;
-	int init_ss_id;
-	double init_thickness;
-	int cur_ss_id;
-	
-	
-	
-	public String getSensor_id() {
-		return sensor_id;
+	String vin;
+	int axisindex;
+	String axisside;
+	int axisrow;
+	double initthickness;
+
+	public String getSensorid() {
+		return sensorid;
 	}
 	@XmlElement
-	public void setSensor_id(String sensor_id) {
-		this.sensor_id = sensor_id;
+	public void setSensorid(String sensor_id) {
+		this.sensorid = sensor_id;
 	}
 	
 	public String getManufacturer() {
@@ -55,60 +51,44 @@ public class Tire {
 		this.sku = sku;
 	}
 	
-	public int getVehicle_id() {
-		return vehicle_id;
+	public String getVin() {
+		return vin;
 	}
 	@XmlElement
-	public void setVehicle_id(int vehicle_id) {
-		this.vehicle_id = vehicle_id;
+	public void setVin(String v) {
+		this.vin = v;
 	}
 	
-	public int getAxis_row() {
-		return axis_row;
+	public int getAxisrow() {
+		return axisrow;
 	}
 	@XmlElement
-	public void setAxis_row(int axis_row) {
-		this.axis_row = axis_row;
+	public void setAxisrow(int axis_row) {
+		this.axisrow = axis_row;
 	}
 
-	public String getAxis_side() {
-		return axis_side;
+	public String getAxisside() {
+		return axisside;
 	}
 	@XmlElement
-	public void setAxis_side(String axis_side) {
-		this.axis_side = axis_side;
+	public void setAxisside(String axis_side) {
+		this.axisside = axis_side;
 	}
 	
-	public int getAxis_index() {
-		return axis_index;
+	public int getAxisindex() {
+		return axisindex;
 	}
 	@XmlElement
-	public void setAxis_index(int axis_index) {
-		this.axis_index = axis_index;
+	public void setAxisindex(int axis_index) {
+		this.axisindex = axis_index;
 	}
 
-	public int getInit_ss_id() {
-		return init_ss_id;
+	public double getInitthickness() {
+		return initthickness;
 	}
 	@XmlElement
-	public void setInit_ss_id(int init_ss_id) {
-		this.init_ss_id = init_ss_id;
-	}
-	
-	public int getCur_ss_id() {
-		return cur_ss_id;
-	}
-	@XmlElement
-	public void setCur_ss_id(int cur_ss_id) {
-		this.cur_ss_id = cur_ss_id;
-	}
-
-	public double getInit_thickness() {
-		return init_thickness;
-	}
-	@XmlElement
-	public void setInit_thickness(double init_thickness) {
-		this.init_thickness = init_thickness;
+	public void setInitthickness(double init_thickness) {
+		this.initthickness = init_thickness;
 	}
 	
 }

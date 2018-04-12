@@ -12,17 +12,18 @@ import models.*;
 
 public abstract class Inserter {
 	private static Connection conn = null;
-	private static void connectDatabase () {
+	private static void connectDatabase () throws FileNotFoundException {
 		final String USER = "mynewuser";
 	    final String PASS = "passw0rd";
 	    String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
 	    try {
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		} catch (SQLException e) {
+			LogRecorder.recordLog("connectDatabase fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 		}
 	}
-	public static boolean insertSnapshot(Snapshot ss) {
+	public static boolean insertSnapshot(Snapshot ss) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
@@ -49,6 +50,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
+			LogRecorder.recordLog("insertSnapshot fail::::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -56,6 +58,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
+				LogRecorder.recordLog("inserter user fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -63,7 +66,7 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertTire(Tire t) {
+	public static boolean insertTire(Tire t) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
@@ -74,22 +77,23 @@ public abstract class Inserter {
 		            + "VEHICLE_ID, INIT_THICKNESS) VALUES ("
 		            + " ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 			psmt = conn.prepareStatement(query);
-			psmt.setInt(1, t.getInit_ss_id());
-			psmt.setString(2, t.getSensor_id());
-			psmt.setInt(3, t.getCur_ss_id());
+			//psmt.setInt(1, t.getInit_ss_id());
+			psmt.setString(2, t.getSensorid());
+			//psmt.setInt(3, t.getCur_ss_id());
 			psmt.setString(4, t.getManufacturer());
 			psmt.setString(5, t.getModel());
 			psmt.setString(6, t.getSku());
-			psmt.setInt(7,  t.getAxis_row());
-			psmt.setString(8, t.getAxis_side());
-			psmt.setInt(9, t.getAxis_index());
-			psmt.setInt(10, t.getVehicle_id());
-			psmt.setDouble(11, t.getInit_thickness());
+			psmt.setInt(7,  t.getAxisrow());
+			psmt.setString(8, t.getAxisside());
+			psmt.setInt(9, t.getAxisindex());
+			psmt.setString(10, t.getVin());
+			psmt.setDouble(11, t.getInitthickness());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
+			LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -97,6 +101,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
+				LogRecorder.recordLog("insertTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -104,13 +109,13 @@ public abstract class Inserter {
 		}
 		return true;
 	}
-	public static boolean insertVehicle(Vehicle v) {
+	public static boolean insertVehicle(Vehicle v) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
 			conn.setAutoCommit(false);
 			String query= "INSERT INTO VEHICLE("
-		            + "VIN, MAKE, MODEL, YEAR, AXIS_NUM, TIRE_NUM, USER_ID)"
+		            + "VIN, MAKE, MODEL, YEAR, AXIS_NUM, TIRE_NUM, USER_EMAIL)"
 		            + "VALUES (?, ?, ?, ?, ?, ?, ?);";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, v.getVin());
@@ -119,12 +124,13 @@ public abstract class Inserter {
 			psmt.setInt(4, v.getYear());
 			psmt.setInt(5, v.getAxis_num());
 			psmt.setInt(6, v.getTire_num());
-			psmt.setInt(7,  v.getUser_id());
+			psmt.setString(7,  v.getEmail());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
+			LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -132,6 +138,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
+				LogRecorder.recordLog("insertVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
@@ -158,7 +165,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
-			LogRecorder.recordLog("inserter user fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {
@@ -166,6 +173,7 @@ public abstract class Inserter {
 				psmt.close();
 				conn.close();
 			} catch (SQLException e1) {
+				LogRecorder.recordLog("insertUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 		    }
@@ -174,7 +182,7 @@ public abstract class Inserter {
 	    return true;
 	}
 	
-	public static boolean insertAccident(Accident a) {
+	public static boolean insertAccident(Accident a) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
@@ -190,6 +198,7 @@ public abstract class Inserter {
 			conn.commit();
 			conn.close();
 		} catch (SQLException e) {
+			LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			try {

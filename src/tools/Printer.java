@@ -1,6 +1,7 @@
 package tools;
 import java.util.ArrayList;
 import java.util.List;
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -17,18 +18,19 @@ import models.*;
 
 public abstract class Printer {
 	private static Connection conn = null;
-	private static void connectDatabase () {
+	private static void connectDatabase () throws FileNotFoundException {
 		final String USER = "mynewuser";
 	    final String PASS = "passw0rd";
 	    String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
 	    try {
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		} catch (SQLException e) {
+			LogRecorder.recordLog("connectDatabase fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 		}
 	}
 	
-	public static String getSalt(String email) {
+	public static String getSalt(String email) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		String query= "SELECT SALT FROM USER"
@@ -47,13 +49,14 @@ public abstract class Printer {
 			return saltstring;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			LogRecorder.recordLog("getSalt fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 		}
 		
 		return null;
 	}
 	
-	public static List<Snapshot> getSnapshots(String email) {
+	public static List<Snapshot> getSnapshots(String email) throws FileNotFoundException {
 	    connectDatabase();
 	    PreparedStatement pstmt = null;
 	    List<Snapshot> list = new ArrayList<Snapshot>();
@@ -84,14 +87,15 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-		se.printStackTrace();
-	    }catch(Exception e){
-		e.printStackTrace();
+	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	se.printStackTrace();
+	    } catch(Exception e) {	    	
+	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 	    return null;
 	}
 	
-	public static List<Tire> getTires(String email) {
+	public static List<Tire> getTires(String email) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    List<Tire> list = new ArrayList<Tire>();
@@ -104,17 +108,17 @@ public abstract class Printer {
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Tire tire = new Tire();
-		    tire.setSensor_id(rs.getString("SENSOR_ID"));
+		    tire.setSensorid(rs.getString("SENSOR_ID"));
 		    tire.setManufacturer(rs.getString("MANUFACTURER"));
 		    tire.setModel(rs.getString("MODEL"));
 		    tire.setSku(rs.getString("SKU"));
-		    tire.setVehicle_id(rs.getInt("VEHICLE_ID")) ;
-		    tire.setAxis_index(rs.getInt("AXIS_INDEX"));
-		    tire.setAxis_side(rs.getString("AXIS_SIDE")); 
-		    tire.setAxis_row(rs.getInt("AXIS_ROW"));
-		    tire.setInit_ss_id(rs.getInt("INIT_SS_ID"));
-		    tire.setInit_thickness(rs.getDouble("INIT_THICKNESS"));
-		    tire.setCur_ss_id(rs.getInt("CUR_SS_ID"));
+		    tire.setVin(rs.getString("VEHICLE_ID")) ;
+		    tire.setAxisindex(rs.getInt("AXIS_INDEX"));
+		    tire.setAxisside(rs.getString("AXIS_SIDE")); 
+		    tire.setAxisrow(rs.getInt("AXIS_ROW"));
+		    //tire.setInit_ss_id(rs.getInt("INIT_SS_ID"));
+		    tire.setInitthickness(rs.getDouble("INIT_THICKNESS"));
+		    //tire.setCur_ss_id(rs.getInt("CUR_SS_ID"));
 		    list.add(tire);
 		}
 		rs.close();
@@ -122,14 +126,14 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-		se.printStackTrace();
+	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    }catch(Exception e){
-		e.printStackTrace();
+	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 	    return null;
 	}
 	
-	public static List<Vehicle> getVehicles(String email) {
+	public static List<Vehicle> getVehicles(String email) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 
@@ -148,7 +152,7 @@ public abstract class Printer {
 		    v.setYear(rs.getInt("YEAR"));
 		    v.setTire_num(rs.getInt("TIRE_NUM"));
 		    v.setAxis_num(rs.getInt("AXIS_NUM"));
-		    v.setUser_id(rs.getInt("USER_ID"));
+		    v.setEmail(rs.getString("EMAIL"));
 		    list.add(v);
 		}
 		rs.close();
@@ -156,15 +160,15 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-		se.printStackTrace();
+	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    }catch(Exception e){
-		e.printStackTrace();
+	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 
 	    return null;
 	}
 	
-	public static boolean authenticate(String email, String hash) {
+	public static boolean authenticate(String email, String hash) throws FileNotFoundException {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		String query= "SELECT SALT FROM USER"
@@ -178,15 +182,16 @@ public abstract class Printer {
 			boolean is_authenticated = rs.next();
 			conn.close();
 			return is_authenticated;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-		}
+		 }catch(SQLException se){
+		    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+		    }catch(Exception e){
+		    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+		  }
+		return false;
 	}
 
 
-	public static User getUser(String email) {
+	public static User getUser(String email) throws FileNotFoundException {
 				
 		try {
 			PreparedStatement psmt = null;
@@ -206,10 +211,11 @@ public abstract class Printer {
 			conn.close();
 			return u;
 
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
+		}catch(SQLException se){
+	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    }catch(Exception e){
+	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    }
+		return null;
 	}
 }

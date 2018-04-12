@@ -1,11 +1,12 @@
 package tools;
 import java.io.FileNotFoundException;
+import models.*;
 import java.util.List;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import java.io.*;
-import models.*;
+
 
 /**
  * Servlet implementation class Result
@@ -42,7 +43,7 @@ public abstract class Result{
 	return null;	
     }
 
-    public static String getAll(Message m) throws JAXBException{
+    public static String getAll(Message m) throws JAXBException, FileNotFoundException{
 	String ans;
 	String email = m.getUser().getEmail();
 	User user = Printer.getUser(email);
@@ -117,7 +118,7 @@ public abstract class Result{
     }
 
     
-    public static String accidentToXml(Message m){
+    public static String accidentToXml(Message m) throws FileNotFoundException{
 	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if(Inserter.insertAccident(m.getAccident())){
@@ -130,7 +131,7 @@ public abstract class Result{
 	return ans;
     }
     
-    public static String tireToXml(Message m){
+    public static String tireToXml(Message m) throws FileNotFoundException{
 	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if(Inserter.insertTire(m.getTire())){
@@ -157,7 +158,7 @@ public abstract class Result{
 	return ans;
     }	    
     
-    public static String snapshotToXml(Message m){
+    public static String snapshotToXml(Message m) throws FileNotFoundException{
 	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if(Inserter.insertSnapshot(m.getSnapshot())){
@@ -171,7 +172,7 @@ public abstract class Result{
     }
 
     
-    public static String vehicleToXml(Message m){
+    public static String vehicleToXml(Message m) throws FileNotFoundException{
 	String ans, type="";
 	if(m.getMethod().equals("create")){
 	    if(Inserter.insertVehicle(m.getVehicle())){
@@ -200,7 +201,7 @@ public abstract class Result{
 	    
 
     
-    public static String AuthToXml(Message m){
+    public static String AuthToXml(Message m) throws FileNotFoundException{
 	String ans;
 	ans = "<message><authentication>";
 	if(m.getAuthentication().haveHash()) {

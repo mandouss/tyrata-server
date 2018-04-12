@@ -1,4 +1,6 @@
 package tools;
+import java.io.FileNotFoundException;
+import java.sql.*;
 import models.*;
 
 /**
@@ -8,7 +10,7 @@ import models.*;
 
 public class Deleter {
     private static Connection conn = null;
-    private static void connectDatabase () {
+    private static void connectDatabase () throws FileNotFoundException {
 	final String USER = "mynewuser";
 	final String PASS = "passw0rd";
 	String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
@@ -16,17 +18,18 @@ public class Deleter {
 	    conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	} catch (SQLException e) {
 	    e.printStackTrace();
+	    LogRecorder.recordLog("connectDatabase fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	}
     }
     
-	static boolean deleteTire(Tire t) {
+	static boolean deleteTire(Tire t) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    try{
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM TIRE WHERE SENSOR_ID=?";
-		psmt.connprepareStatement(sql);
-		psmt.setString(1,t.getSensor_id());
+		psmt = conn.prepareStatement(query);
+		psmt.setString(1,t.getSensorid());
 		psmt.addBatch();
 		psmt.executeBatch();
 		conn.commit();
@@ -39,6 +42,7 @@ public class Deleter {
 		    conn.close();
 		} catch (SQLException e1) {
 		    // TODO Auto-generated catch block
+			LogRecorder.recordLog("deleteTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 		    e1.printStackTrace();
 		}
 		return false;
@@ -46,13 +50,13 @@ public class Deleter {
 		return true;
 	}
 
-	static boolean deleteVehicle(Vehicle v ) {
+	static boolean deleteVehicle(Vehicle v ) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    try{
 		conn.setAutoCommit(false);
 		String query = "DELETE FROM VEHICLE WHERE VIN=?";
-		psmt.connprepareStatement(sql);
+		psmt = conn.prepareStatement(query);
 		psmt.setString(1,v.getVin());
 		psmt.addBatch();
 		psmt.executeBatch();
@@ -66,6 +70,7 @@ public class Deleter {
 		    conn.close();
 		} catch (SQLException e1) {
 		    // TODO Auto-generated catch block
+			LogRecorder.recordLog("deleteVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 		    e1.printStackTrace();
 		}
 		return false;

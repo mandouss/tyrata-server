@@ -1,4 +1,5 @@
 package tools;
+import java.io.FileNotFoundException;
 import java.sql.*;
 import models.*;
 /**
@@ -8,7 +9,7 @@ import models.*;
  */
 public class Updater {
 	private static Connection conn = null;
-	private static void connectDatabase () {
+	private static void connectDatabase () throws FileNotFoundException {
 		final String USER = "mynewuser";
 	    final String PASS = "passw0rd";
 	    String DB_URL = "jdbc:mysql://localhost:3306/Tyrata";
@@ -16,9 +17,10 @@ public class Updater {
 			conn = DriverManager.getConnection(DB_URL,USER,PASS);
 		} catch (SQLException e) {
 			e.printStackTrace();
+			LogRecorder.recordLog("updateTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 		}
 	}
-	public static boolean updateTire(Message m) {
+	public static boolean updateTire(Message m) throws FileNotFoundException {
 		Tire t = m.getTire();
 		PreparedStatement psmt = null;
 		connectDatabase();
@@ -28,24 +30,26 @@ public class Updater {
 					+"SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_SS_ID=?, CUR_SS_ID=?, INIT_THICKNESS=? "
 					+"WHERE SENSOR_ID=? ;";
 			psmt = conn.prepareStatement(query);
-			psmt.setString(1, t.getSensor_id());
+			psmt.setString(1, t.getSensorid());
 			psmt.setString(2, t.getManufacturer());
 			psmt.setString(3, t.getModel());
 			psmt.setString(4, t.getSku());
-			psmt.setInt(5, t.getVehicle_id());
-			psmt.setInt(6,  t.getAxis_row());
-			psmt.setString(7, t.getAxis_side());
-			psmt.setInt(8, t.getAxis_index());
-			psmt.setInt(9, t.getInit_ss_id());
-			psmt.setInt(10, t.getCur_ss_id());
-			psmt.setDouble(11, t.getInit_thickness());
+			psmt.setString(5, t.getVin());
+			psmt.setInt(6,  t.getAxisrow());
+			psmt.setString(7, t.getAxisside());
+			psmt.setInt(8, t.getAxisindex());
+			//psmt.setInt(9, t.getInit_ss_id());
+			//psmt.setInt(10, t.getCur_ss_id());
+			psmt.setDouble(11, t.getInitthickness());
 			psmt.setString(12, m.getOrigial_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
 			conn.close();
+			return true;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			LogRecorder.recordLog("updateTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 			try {
 				conn.rollback();
@@ -57,9 +61,9 @@ public class Updater {
 			}
 			return false;
 		}
-		return true;
+		
 	}
-	public static boolean updateVehicle(Message m) {
+	public static boolean updateVehicle(Message m) throws FileNotFoundException {
 		Vehicle v = m.getVehicle();
 		PreparedStatement psmt = null;
 		connectDatabase();
@@ -75,7 +79,7 @@ public class Updater {
 			psmt.setInt(4, v.getYear());
 			psmt.setInt(5, v.getAxis_num());
 			psmt.setInt(6, v.getTire_num());
-			psmt.setInt(7, v.getUser_id());
+			psmt.setString(7, v.getEmail());
 			psmt.setString(8, m.getOrigial_info());
 			psmt.addBatch();
 			psmt.executeBatch();
@@ -83,6 +87,7 @@ public class Updater {
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			LogRecorder.recordLog("updateVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 			try {
 				conn.rollback();
@@ -96,7 +101,7 @@ public class Updater {
 		}
 		return true;
 	}
-	public static boolean updateUser(Message m) {
+	public static boolean updateUser(Message m) throws FileNotFoundException {
 		User u = m.getUser();
 		PreparedStatement psmt = null;
 		connectDatabase();
@@ -118,6 +123,7 @@ public class Updater {
 			conn.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			LogRecorder.recordLog("updateUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
 			try {
 				conn.rollback();
