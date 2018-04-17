@@ -45,8 +45,8 @@ public class Database {
     static String USER_sql = "CREATE TABLE IF NOT EXISTS USER("
             + "NAME VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci' UNIQUE,"
             + "EMAIL VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
-            + "PHONE_NUMBER VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
-	        + "HASH VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
+            + "PHONE_NUMBER VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci"
+	        + "HASH VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci'"
 	        + "SALT VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PRIMARY KEY(EMAIL)"
             + ")charset=utf8;";
@@ -57,7 +57,7 @@ public class Database {
     		+ "DESCRIPTION VARCHAR(500) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PRIMARY KEY(ACC_ID),"
     		+ "FOREIGN KEY(EMAIL) REFERENCES USER(EMAIL) "
-            + "ON UPDATE CASCADE ON DELETE RESTRICT"
+            + "ON UPDATE CASCADE ON DELETE CASCADE"
             + ")charset=utf8;";
 
     static String VEHICLE_sql = "CREATE TABLE IF NOT EXISTS VEHICLE("
@@ -70,13 +70,12 @@ public class Database {
             + "TIRE_NUM INT(11) NOT NULL,"
             + "USER_EMAIL VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "PRIMARY KEY(ID),"
-            + "FOREIGN KEY(USER_EMAIL) REFERENCES USER(EMAIL) "
-            + "ON UPDATE CASCADE ON DELETE RESTRICT"
-            //+ "CONSTRAINT `VIN_USER_ID_fk_USER_USER_ID` FOREIGN KEY (`USER_ID`) REFERENCES `USER` (`USER_ID`)"
+            + "FOREIGN KEY(USER_EMAIL) REFERENCES USER(EMAIL)"
+            + "ON UPDATE CASCADE ON DELETE CASCADE" 
             + ")charset=utf8;";
 
     static String TIRE_sql = "CREATE TABLE IF NOT EXISTS TIRE("
-	    + "ID INT(11) NOT NULL AUTO_INCREMENT,"
+    		+ "ID INT(11) NOT NULL AUTO_INCREMENT,"
             + "SENSOR_ID VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci' UNIQUE,"
             + "INIT_SS_ID INT(11) NOT NULL,"
             + "CUR_SS_ID INT(11) NOT NULL,"
@@ -88,9 +87,10 @@ public class Database {
             + "AXIS_INDEX INT(11) NOT NULL,"
             + "VEHICLE_ID VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "INIT_THICKNESS DOUBLE NOT NULL,"
-            + "PRIMARY KEY(ID)"
-            //+ "CONSTRAINT `TIRE_VEHICLE_ID_fk_VEHICLE_VIN` FOREIGN KEY (`VEHICLE_ID`) REFERENCES `VEHICLE` (`VIN`)"
-            + ")charset=utf8;";
+            + "PRIMARY KEY(ID),"
+            + "FOREIGN KEY(VEHICLE_ID) REFERENCES VEHICLE(VIN) " 
+            +"ON UPDATE CASCADE ON DELETE CASCADE"
+            +")charset=utf8;";
 
     static String SNAPSHOT_sql = "CREATE TABLE IF NOT EXISTS SNAPSHOT("
             + "ID INT(11) NOT NULL AUTO_INCREMENT,"
@@ -104,9 +104,10 @@ public class Database {
             + "TIME_TO_REPLACEMENT VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
             + "LONGITUDE DOUBLE NOT NULL,"
             + "LATITUDE DOUBLE NOT NULL,"
-            + "TIRE_ID INT(11) NOT NULL,"
-            + "PRIMARY KEY(ID)"
-            //+ "CONSTRAINT `SNAPSHOT_ID_fk_TIRE_SENSOR_ID` FOREIGN KEY (`TIRE_ID`) REFERENCES `TIRE` (`SENSOR_ID`)"
+            + "TIRE_ID VARCHAR(128) NOT NULL COLLATE 'utf8_unicode_ci',"
+            + "PRIMARY KEY(ID),"
+            + "FOREIGN KEY(TIRE_ID) REFERENCES TIRE(SENSOR_ID) "
+            + "ON UPDATE CASCADE ON DELETE CASCADE"
             + ")charset=utf8;";
 
     public static void dbcreate(){

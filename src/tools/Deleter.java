@@ -18,7 +18,7 @@ public abstract class Deleter {
 	        conn = DriverManager.getConnection(DB_URL,USER,PASS);
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        LogRecorder.recordLog("connectDatabase fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	        LogRecorder.recordLog("connectDatabase fail:::"+ e.getMessage(), "~/Tyrata.log");
 	    }
     }
     
@@ -42,7 +42,7 @@ public abstract class Deleter {
 		    conn.close();
 		} catch (SQLException e1) {
 		    // TODO Auto-generated catch block
-			LogRecorder.recordLog("deleteTire fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("deleteTire fail:::"+ e.getMessage(), "~/Tyrata.log");
 		    e1.printStackTrace();
 		}
 		return false;
@@ -69,7 +69,7 @@ public abstract class Deleter {
 		    conn.close();
 		} catch (SQLException e1) {
 		    // TODO Auto-generated catch block
-			LogRecorder.recordLog("deleteVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("deleteVehicle fail:::"+ e.getMessage(), "~/Tyrata.log");
 		    e1.printStackTrace();
 		}
 		return false;

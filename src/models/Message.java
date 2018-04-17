@@ -1,7 +1,7 @@
 package models;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
+import tools.LogRecorder;
 /*
  * XML implementation class XML Message
  * Author: Yiwei
@@ -27,13 +27,13 @@ public class Message {
 	this.accident = accident;
     }
     
-    public String getOrigial_info(){
+    public String getOriginal_info(){
 	return original_info;
     }
 
     @XmlElement
-    public void setOrigial_info(String original_info){
-	this.original_info = original_info;
+    public void setOriginal_info(String original_info){
+    	this.original_info = original_info;
     }
     
     

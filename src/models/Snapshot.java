@@ -13,7 +13,7 @@ public class Snapshot {
 	String timestamp;
 	double mileage;
 	double pressure;
-	int tire_id;
+	String sensorid;
 	boolean outlier;
 	double thickness;
 	String eol;
@@ -54,12 +54,12 @@ public class Snapshot {
 		this.pressure = pressure;
 	}
 	
-	public int getTire_id() {
-		return tire_id;
+	public String getSensorid() {
+		return sensorid;
 	}
 	@XmlElement
-	public void setTire_id(int tire_id) {
-		this.tire_id = tire_id;
+	public void setSensorid(String sensorid) {
+		this.sensorid = sensorid;
 	}
 	
 	public boolean isOutlier() {

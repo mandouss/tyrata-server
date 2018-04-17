@@ -26,7 +26,7 @@ public class Updater {
 		try {
 			conn.setAutoCommit(false);
 			String query= "UPDATE TIRE "
-					+"SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_SS_ID=?, CUR_SS_ID=?, INIT_THICKNESS=? "
+					+"SET SENSOR_ID=?, MANUFACTURER=?, MODEL=?, SKU=?, VEHICLE_ID=?, AXIS_ROW=?, AXIS_SIDE=?, AXIS_INDEX=?, INIT_THICKNESS=? "
 					+"WHERE SENSOR_ID=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, t.getSensorid());
@@ -39,8 +39,8 @@ public class Updater {
 			psmt.setInt(8, t.getAxisindex());
 			//psmt.setInt(9, t.getInit_ss_id());
 			//psmt.setInt(10, t.getCur_ss_id());
-			psmt.setDouble(11, t.getInitthickness());
-			psmt.setString(12, m.getOrigial_info());
+			psmt.setDouble(9, t.getInitthickness());
+			psmt.setString(10, m.getOriginal_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
@@ -67,9 +67,12 @@ public class Updater {
 		PreparedStatement psmt = null;
 		connectDatabase();
 		try {
+			/*String query= "UPDATE USER "
+		            + "SET NAME=?, EMAIL=?, PHONE_NUMBER=?, SALT=?, HASH=? "
+		            + "WHERE EMAIL=?;";*/
 			conn.setAutoCommit(false);
 			String query= "UPDATE VEHICLE "
-		            + "SET VIN=?, MAKE=?, MODEL=?, YEAR=?, AXIS_NUM=?, TIRE_NUM=?, USER_ID=? "
+		            + "SET VIN=?, MAKE=?, MODEL=?, YEAR=?, AXIS_NUM=?, TIRE_NUM=? "
 		            + "WHERE VIN=? ;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, v.getVin());
@@ -78,13 +81,13 @@ public class Updater {
 			psmt.setInt(4, v.getYear());
 			psmt.setInt(5, v.getAxis_num());
 			psmt.setInt(6, v.getTire_num());
-			psmt.setString(7, v.getEmail());
-			psmt.setString(8, m.getOrigial_info());
+//			psmt.setString(7, v.getEmail());
+			psmt.setString(7, m.getOriginal_info());
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
 			conn.close();
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			LogRecorder.recordLog("updateVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			e.printStackTrace();
@@ -96,8 +99,11 @@ public class Updater {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			LogRecorder.recordLog("return faulse in dsfadsfdasgfdsgda" ,"/home/vcm/Tyrata.log");
+			LogRecorder.recordLog("updateVehicle fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 			return false;
 		}
+		LogRecorder.recordLog("return true in dsafdsgfdshgdfh" ,"/home/vcm/Tyrata.log");
 		return true;
 	}
 	public static boolean updateUser(Message m) throws FileNotFoundException {
@@ -111,15 +117,22 @@ public class Updater {
 		            + "WHERE EMAIL=?;";
 			psmt = conn.prepareStatement(query);
 			psmt.setString(1, u.getName());
+			
 			psmt.setString(2, u.getEmail());
+
 			psmt.setString(3, u.getPhone_num());
+
 			psmt.setString(4, u.getSalt());
+
 			psmt.setString(5, u.getHash());
-			psmt.setString(6, m.getOrigial_info());
+
+			psmt.setString(6, m.getOriginal_info());
+
 			psmt.addBatch();
 			psmt.executeBatch();
 			conn.commit();
 			conn.close();
+			LogRecorder.recordLog("updateUser is executed\n" ,"/home/vcm/Tyrata.log");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			LogRecorder.recordLog("updateUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");

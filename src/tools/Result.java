@@ -15,7 +15,7 @@ import java.io.*;
 public abstract class Result{
     public static String dbToXml(Message m) throws FileNotFoundException, JAXBException{
 	String type = m.getType();
-	if(type == null  && m.getMethod().equals("get")){
+	if(type.equals("User")  && m.getMethod().equals("get")){
 	    return getAll(m);
 	}
 	else if(type.equals("User")){
@@ -54,15 +54,19 @@ public abstract class Result{
 	    +user.getEmail()+"</email><phone_num>"
 	    +user.getPhone_num()+"</phone_num></user>";
 	
+	
 	List<Vehicle> vehicles = Printer.getVehicles(email);
 	for (int i = 0; i < vehicles.size(); i++) {
 	    ans = ans + getVehicleXML(vehicles.get(i));
 	}
 	List<Tire> tires = Printer.getTires(email);
+	LogRecorder.recordLog("tires size:::" + tires.size() , "/home/vcm/Tyrata.log");
 	for (int i = 0; i < tires.size(); i++) {
-	    ans = ans + getTireXML(tires.get(i));
+		ans = ans + getTireXML(tires.get(i));
 	}
+	
 	List<Snapshot> snapshots = Printer.getSnapshots(email);
+	LogRecorder.recordLog("snapshot's size:::" + snapshots.size() , "/home/vcm/Tyrata.log");
 	for (int i = 0; i < snapshots.size(); i++) {
 	    ans = ans + getSnapshotXML(snapshots.get(i));
 	}

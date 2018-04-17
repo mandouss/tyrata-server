@@ -61,14 +61,14 @@ public abstract class Printer {
 	    List<Snapshot> list = new ArrayList<Snapshot>();
 	    try{
 		String sql;
-		sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
+		sql = "SELECT * FROM USER,VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL='"+ email +"' and VEHICLE.USER_EMAIL=USER.EMAIL and VEHICLE.VIN=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.SENSOR_ID;";
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
-		
+		//pstmt.setString(1, email);
+		pstmt.addBatch();
 		ResultSet rs = pstmt.executeQuery(sql);
 		while(rs.next()){
 		    Snapshot snaphot = new Snapshot();
-		    snaphot.setTire_id(rs.getInt("ID"));
+		    snaphot.setSensorid(rs.getString("ID"));
 		    snaphot.setS11( rs.getInt("S11") );
 		    snaphot.setTimestamp(rs.getString("TIMESTAMP")); 
 		    snaphot.setMileage(rs.getDouble("MILEAGE"));
@@ -86,10 +86,10 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getSnapshots fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    	se.printStackTrace();
 	    } catch(Exception e) {	    	
-	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getSnapshots fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 	    return null;
 	}
@@ -100,10 +100,10 @@ public abstract class Printer {
 	    List<Tire> list = new ArrayList<Tire>();
 	    try{
 		String sql;
-		sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID";
+		sql = "SELECT * FROM VEHICLE,TIRE,USER WHERE USER.EMAIL='"+ email +"' and VEHICLE.USER_EMAIL=USER.EMAIL and VEHICLE.VIN=TIRE.VEHICLE_ID;";
 		psmt = conn.prepareStatement(sql);
-		psmt.setString(1, email);
-
+		//psmt.setString(1, email);
+		psmt.addBatch();
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Tire tire = new Tire();
@@ -125,9 +125,9 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getTires fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    }catch(Exception e){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getTires fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 	    return null;
 	}
@@ -138,10 +138,12 @@ public abstract class Printer {
 
 	    List<Vehicle> list = new ArrayList<Vehicle>();
 	    try{
+	    LogRecorder.recordLog("getVehicles email:::"+ email, "/home/vcm/Tyrata.log");
 		String sql;
-		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
+		sql = "SELECT * FROM VEHICLE, USER WHERE USER.EMAIL=VEHICLE.USER_EMAIL AND USER.EMAIL='" + email + "';";
 		psmt = conn.prepareStatement(sql);
-		psmt.setString(1, email);
+		//psmt.setString(1, email);
+		psmt.addBatch();
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Vehicle v = new Vehicle();
@@ -159,9 +161,9 @@ public abstract class Printer {
 		conn.close();
 		return list;
 	    }catch(SQLException se){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getVehicles fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    }catch(Exception e){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getVehicles fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 
 	    return null;
@@ -182,9 +184,9 @@ public abstract class Printer {
 			conn.close();
 			return is_authenticated;
 		 }catch(SQLException se){
-		    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+		    	LogRecorder.recordLog("authenticate fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 		    }catch(Exception e){
-		    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+		    	LogRecorder.recordLog("authenticate fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 		  }
 		return false;
 	}
@@ -202,18 +204,21 @@ public abstract class Printer {
 			psmt.setString(1, email);
 			psmt.addBatch();
 			ResultSet rs = psmt.executeQuery();
-			u.setName(rs.getString("NAME"));
-			u.setEmail(rs.getString("EMAIL"));
-			u.setHash("HASH ");
-			u.setPhone_num(rs.getString("PHONE_NUMBER"));
-			u.setSalt(rs.getString("SALT"));
+			
+			if(rs.next()){
+				u.setName(rs.getString("NAME"));
+				u.setEmail(rs.getString("EMAIL"));
+				u.setHash("HASH ");
+				u.setPhone_num(rs.getString("PHONE_NUMBER"));
+				u.setSalt(rs.getString("SALT"));
+			}	
 			conn.close();
 			return u;
 
 		}catch(SQLException se){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getUser fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
 	    }catch(Exception e){
-	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    	LogRecorder.recordLog("getUser fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 		return null;
 	}
