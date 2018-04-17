@@ -9,15 +9,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Tire {
-	String sensorid;
-	String manufacturer;
-	String model;
-	String sku;
-	String vin;
-	int axisindex;
-	String axisside;
-	int axisrow;
-	double initthickness;
+	public String sensorid;
+	public String manufacturer;
+	public String model;
+	public String sku;
+	public String vin;
+	public int axisindex;
+	public String axisside;
+	public int axisrow;
+	public double initthickness;
 
 	public String getSensorid() {
 		return sensorid;

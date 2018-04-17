@@ -11,13 +11,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Vehicle {
-	String vin;
-	String make;
-	String model;
-	int year;
-	int tire_num;
-	int axis_num;
-	String email;
+	public String vin;
+	public String make;
+	public String model;
+	public int year;
+	public int tire_num;
+	public int axis_num;
+	public String email;
 	
 
 	

@@ -7,11 +7,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class User {
 	
-    String name;
-    String email;
-    String phone_num;
-    String hash;
-    String salt;
+    public String name;
+    public String email;
+    public String phone_num;
+    public String hash;
+    public String salt;
    
 	
     public boolean isValid () {

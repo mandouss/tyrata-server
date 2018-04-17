@@ -9,17 +9,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class Snapshot {
-	double s11;
-	String timestamp;
-	double mileage;
-	double pressure;
-	int tire_id;
-	boolean outlier;
-	double thickness;
-	String eol;
-	String replacetime;
-	double longtitude;
-	double latitude;
+	public double s11;
+	public String timestamp;
+	public double mileage;
+	public double pressure;
+	public int tire_id;
+	public boolean outlier;
+	public double thickness;
+	public String eol;
+	public String replacetime;
+	public double longtitude;
+	public double latitude;
 	
 
 	public double getS11() {

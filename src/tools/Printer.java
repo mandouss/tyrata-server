@@ -61,9 +61,16 @@ public abstract class Printer {
 	    List<Snapshot> list = new ArrayList<Snapshot>();
 	    try{
 		String sql;
-		sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
+		if (email.equals("ALL")) {
+			sql = "SELECT * FROM SNAPSHOT;";
+		} else {
+			sql = "SELECT SNAPSHOT.* FROM VEHICLE,TIRE,SNAPSHOT WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID and SNAPSHOT.TIRE_ID=TIRE.ID";
+			
+		}
 		pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, email);
+		if (email.equals("ALL") == false) {
+			pstmt.setString(1, email);
+		}
 		
 		ResultSet rs = pstmt.executeQuery(sql);
 		while(rs.next()){
@@ -93,17 +100,52 @@ public abstract class Printer {
 	    }
 	    return null;
 	}
-	
+
+	public static List<User> getAllUsers() throws FileNotFoundException {
+	    connectDatabase();
+	    PreparedStatement pstmt = null;
+	    List<User> list = new ArrayList<User>();
+	    try{
+		String sql;
+		sql = "SELECT * FROM USER;";
+		pstmt = conn.prepareStatement(sql);
+		
+		ResultSet rs = pstmt.executeQuery(sql);
+		while(rs.next()){
+			User usr = new User();
+			usr.setEmail(rs.getString("EMAIL"));
+		    usr.setHash(rs.getString("HASH"));
+		    usr.setName(rs.getString("NAME"));
+		    usr.setPhone_num(rs.getString("PHONE_NUMBER"));
+		    list.add(usr);
+		}
+		rs.close();
+		pstmt.close();
+		conn.close();
+		return list;
+	    }catch(SQLException se){
+	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	se.printStackTrace();
+	    } catch(Exception e) {	    	
+	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
+	    }
+	    return null;
+	}
 	public static List<Tire> getTires(String email) throws FileNotFoundException {
 	    PreparedStatement psmt = null;
 	    connectDatabase();
 	    List<Tire> list = new ArrayList<Tire>();
 	    try{
 		String sql;
-		sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID";
+		if (email.equals("ALL")) {
+			sql = "SELECT * FROM TIRE;";
+		} else {
+			sql = "SELECT TIRE.* FROM VEHICLE,TIRE,USER WHERE USER.EMAIL=? and VEHICLE.USER_ID=USER.ID and VEHICLE.ID=TIRE.VEHICLE_ID";
+		}
 		psmt = conn.prepareStatement(sql);
-		psmt.setString(1, email);
-
+		if (email.equals("ALL") == false) {
+			psmt.setString(1, email);
+		}
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Tire tire = new Tire();
@@ -139,9 +181,15 @@ public abstract class Printer {
 	    List<Vehicle> list = new ArrayList<Vehicle>();
 	    try{
 		String sql;
-		sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
+		if (email.equals("ALL")) {
+			sql = "SELECT * FROM VEHICLE;";
+		} else {
+			sql = "SELECT VEHICLE.* FROM VEHICLE,USER WHERE USER.EMAIL=? and USER.ID=VEHICLE.USER_ID";
+		}
 		psmt = conn.prepareStatement(sql);
-		psmt.setString(1, email);
+		if (email.equals("ALL") == false) {
+			psmt.setString(1, email);
+		}
 		ResultSet rs = psmt.executeQuery(sql);
 		while(rs.next()){
 		    Vehicle v = new Vehicle();
@@ -151,7 +199,7 @@ public abstract class Printer {
 		    v.setYear(rs.getInt("YEAR"));
 		    v.setTire_num(rs.getInt("TIRE_NUM"));
 		    v.setAxis_num(rs.getInt("AXIS_NUM"));
-		    v.setEmail(rs.getString("EMAIL"));
+		    v.setEmail(rs.getString("USER_EMAIL"));
 		    list.add(v);
 		}
 		rs.close();
@@ -160,7 +208,9 @@ public abstract class Printer {
 		return list;
 	    }catch(SQLException se){
 	    	LogRecorder.recordLog("insertAccident fail:::"+ se.getMessage(), "/home/vcm/Tyrata.log");
+	    	se.printStackTrace();
 	    }catch(Exception e){
+	    	e.printStackTrace();
 	    	LogRecorder.recordLog("insertAccident fail:::"+ e.getMessage(), "/home/vcm/Tyrata.log");
 	    }
 

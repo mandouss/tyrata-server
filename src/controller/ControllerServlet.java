@@ -1,13 +1,19 @@
 package controller;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import models.Snapshot;
 import models.Tire;
+import models.User;
+import models.Vehicle;
 import tools.Deleter;
 import tools.Inserter;
 import tools.Printer;
@@ -34,7 +40,7 @@ public class ControllerServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		try{
-            out.println("Connected to database!");
+            /*out.println("Connected to database!");
             Tire t = new Tire();
             t.setAxisindex(5);
             t.setAxisrow(5);
@@ -44,9 +50,19 @@ public class ControllerServlet extends HttpServlet {
             t.setModel("BARDA");
             t.setSku("Now");
             t.setVin("HAHEHAHEH");
-            t.setSensorid("123arbc");
+            t.setSensorid("123arbc");*/
             //Inserter.insertTire(t);
             //Deleter.deleteTire(t);
+			List<User> uList = Printer.getAllUsers();
+			List<Vehicle> vList = Printer.getVehicles("ALL");
+			List<Tire> tList = Printer.getTires("ALL");
+			List<Snapshot> sList = Printer.getSnapshots("ALL");
+			request.setAttribute("users", uList);
+			request.setAttribute("vehicles", vList);
+			request.setAttribute("tires", tList);
+			request.setAttribute("snapshots", sList);
+			RequestDispatcher rd = request.getRequestDispatcher("users.jsp");
+			rd.forward(request, response);
         }catch(Exception e){
             e.printStackTrace();
         }
