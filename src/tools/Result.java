@@ -57,20 +57,27 @@ public abstract class Result{
 	
 	List<Vehicle> vehicles = Printer.getVehicles(email);
 	for (int i = 0; i < vehicles.size(); i++) {
-	    ans = ans + getVehicleXML(vehicles.get(i));
+		String temp = getVehicleXML(vehicles.get(i));
+		temp = temp.substring(55);
+	    ans = ans + temp;
 	}
 	List<Tire> tires = Printer.getTires(email);
 	LogRecorder.recordLog("tires size:::" + tires.size() , "/home/vcm/Tyrata.log");
 	for (int i = 0; i < tires.size(); i++) {
-		ans = ans + getTireXML(tires.get(i));
+		String temp = getTireXML(tires.get(i));
+		temp = temp.substring(55);
+	    ans = ans + temp;
 	}
 	
 	List<Snapshot> snapshots = Printer.getSnapshots(email);
 	LogRecorder.recordLog("snapshot's size:::" + snapshots.size() , "/home/vcm/Tyrata.log");
 	for (int i = 0; i < snapshots.size(); i++) {
-	    ans = ans + getSnapshotXML(snapshots.get(i));
+		String temp =  getSnapshotXML(snapshots.get(i));
+		temp = temp.substring(55);
+	    ans = ans + temp;
 	}
 	ans = "<message><download>" + ans + "</download></message>";
+	ans = ans.replace("\n", "");
 	return ans;
     }
 
